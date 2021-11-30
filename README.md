@@ -1,45 +1,7 @@
 ![logo](assets/images/app_icon.png)
-# LogBook Desktop App
+# Army Book Desktop App
 
-an internship log book desktop app
-
-## Table of contents
-- [LogBook Desktop App](#logbook-desktop-app)
-  - [Table of contents](#table-of-contents)
-  - [Features](#features)
-  - [Log Book Format](#log-book-format)
-  - [Demo](#demo)
-  - [Screenshots](#screenshots)
-  - [Change Log](#change-log)
-  - [Plugins](#plugins)
-  - [Appreciation](#appreciation)
-  - [Made with Flutter 💙](#made-with-flutter-)
-    - [Ico ref](#ico-ref)
-
-## Features
-- [x] Create quick ToDos
-- [x] Delete ToDos
-- [x] Add Log Book entry with date and workdone
-- [x] View added logbooks in grid / list view
-- [x] Generate and print all logbooks
-
-<br>
-
-## Log Book Format
-| Date       	| Work Done                                                                                                  	| Signature 	|
-|------------	|-----------------------------------------------------------------------------------------------------------	|-----------	|
-| 10/12/2020 	| - Learnt about Java Spring Boot<br>- Initialized a simple Book App in spring<br>- Learnt about Git as VCS 	|           	|
-| 04/01/2021 	| - Helped supervisor to set up windows OS<br>- Learnt about vitualization                                  	|           	|
-|            	|                                                                                                           	|           	|
-
-<br>
-
-## Demo
-- watch short demo [video here](assets/screenshots/demo.mp4)
-![demo](assets/screenshots/demo.gif)
-
-<br>
-<br>
+a documents-organizing desktop app
 
 ## Screenshots
 ![home](assets/screenshots/home.png)
