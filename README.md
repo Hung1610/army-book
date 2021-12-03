@@ -4,9 +4,8 @@
 a documents-organizing desktop app
 
 ## Screenshots
-![home](assets/screenshots/home.png)
-![new](assets/screenshots/new-entry.png)
-![todo](assets/screenshots/new-todo.png)
+![home](assets/screenshots/splash.png)
+![new](assets/screenshots/home.png)
 
 ## Change Log
 - see [change log](CHANGELOG.md)
