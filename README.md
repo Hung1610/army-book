@@ -1,4 +1,3 @@
-![logo](assets/images/app_icon.png)
 # Army Book Desktop App
 
 a documents-organizing desktop app
