@@ -166,10 +166,9 @@ class PdfGenView extends StatelessWidget {
                 builder: (context, snapshot) {
                   final model = snapshot<PdfPrinterViewModel>();
 
-                  final defaultTextStyle = DefaultTextStyle.of(context);
-
-                  final baseStyle = defaultTextStyle.style
-                      .copyWith(fontSize: 16, height: 1.3, color: Colors.black);
+                  var defaultTextStyle = DefaultTextStyle.of(context)
+                      .style
+                      .copyWith(fontFamily: 'TimesNewRoman');
 
                   QuillEditor quillEditor = QuillEditor(
                       controller: _quillController,
@@ -182,10 +181,16 @@ class PdfGenView extends StatelessWidget {
                       expands: false,
                       padding: EdgeInsets.zero,
                       customStyles: DefaultStyles(
-                          paragraph: DefaultTextBlockStyle(baseStyle,
-                              const Tuple2(0, 0), const Tuple2(0, 0), null),
+                          paragraph: DefaultTextBlockStyle(
+                              defaultTextStyle.copyWith(
+                                  fontSize: 16,
+                                  height: 1.3,
+                                  color: Colors.black),
+                              const Tuple2(0, 0),
+                              const Tuple2(0, 0),
+                              null),
                           h1: DefaultTextBlockStyle(
-                              defaultTextStyle.style.copyWith(
+                              defaultTextStyle.copyWith(
                                 fontSize: 34,
                                 color: Colors.black.withOpacity(0.70),
                                 height: 1.15,
@@ -195,7 +200,7 @@ class PdfGenView extends StatelessWidget {
                               const Tuple2(0, 0),
                               null),
                           h2: DefaultTextBlockStyle(
-                              defaultTextStyle.style.copyWith(
+                              defaultTextStyle.copyWith(
                                 fontSize: 24,
                                 color: Colors.black.withOpacity(0.70),
                                 height: 1.15,
@@ -205,7 +210,7 @@ class PdfGenView extends StatelessWidget {
                               const Tuple2(0, 0),
                               null),
                           h3: DefaultTextBlockStyle(
-                              defaultTextStyle.style.copyWith(
+                              defaultTextStyle.copyWith(
                                 fontSize: 20,
                                 color: Colors.black.withOpacity(0.70),
                                 height: 1.25,

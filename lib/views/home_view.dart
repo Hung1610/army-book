@@ -918,13 +918,25 @@ class _HomeViewState extends MomentumState<HomeView> {
                     ),
                     SizedBox(height: 30),
                     formEntryField(
-                      title: 'Workdone',
+                      title: 'Mô tả',
                       context: context,
                       controller: workDone,
                       maxLines: 13,
                       autoFocus: true,
                       hintText: logHintText,
-                      validateError: 'workdone is required',
+                      validateError: 'Tài liệu cần có mô tả',
+                    ),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                      ),
+                      onPressed: () {
+                        MomentumRouter.goto(context, PdfGenView);
+                      },
+                      icon: Icon(Feather.eye),
+                      label: Text(
+                        'Xem nội dung',
+                      ),
                     ),
                     SizedBox(height: 30),
                     Row(
@@ -1022,14 +1034,14 @@ class _HomeViewState extends MomentumState<HomeView> {
                     ),
                     SizedBox(height: 30),
                     TextEntryField(
-                      title: 'Logged On',
+                      title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
                           model.editLogBook.date.toDateTime() ??
                               DateTime.now()),
                     ),
                     SizedBox(height: 30),
                     formEntryField(
-                        title: 'Workdone',
+                        title: 'Mô tả',
                         context: context,
                         // controller: workDone,
                         maxLines: 13,
@@ -1041,6 +1053,31 @@ class _HomeViewState extends MomentumState<HomeView> {
                             workDone.text = editedEntry;
                           });
                         }),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                      ),
+                      onPressed: () {
+                        MomentumRouter.goto(context, PdfGenView);
+                      },
+                      icon: Icon(Feather.eye),
+                      label: Text(
+                        'Xem nội dung',
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                      ),
+                      onPressed: () {
+                        MomentumRouter.goto(context, PdfGenView);
+                      },
+                      icon: Icon(Feather.file),
+                      label: Text(
+                        'Chèn file',
+                      ),
+                    ),
                     SizedBox(height: 30),
                     Row(
                       children: [
@@ -1133,7 +1170,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                   children: [
                     Center(
                       child: Text(
-                        'LogBook Entry',
+                        'Tài liệu',
                         style: kStyle(
                           size: 23,
                           color: textColor,
@@ -1142,14 +1179,14 @@ class _HomeViewState extends MomentumState<HomeView> {
                     ),
                     SizedBox(height: 30),
                     TextEntryField(
-                      title: 'Logged Date',
+                      title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
                         model.editLogBook.date.toDateTime() ?? DateTime.now(),
                       ),
                     ),
                     SizedBox(height: 30),
                     LogEntryField(
-                      title: 'Workdone',
+                      title: 'Mô tả',
                       initialText: model.editLogBook.workdone,
                       fieldHeight: null,
                       maxLines: 13,

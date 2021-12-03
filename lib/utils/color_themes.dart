@@ -7,7 +7,7 @@ final ThemeData colorTheme = ThemeData(
   primaryColor: bgColor,
   scaffoldBackgroundColor: bgColor,
   visualDensity: VisualDensity.adaptivePlatformDensity,
-  fontFamily: 'NunitoSans',
+  fontFamily: 'Roboto',
   canvasColor: secondaryColor,
 );
 

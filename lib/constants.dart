@@ -1,7 +1,7 @@
 // constants and enums
 // DonnC
 
-const String version = 'v3.0.0';
+const String version = 'v1.0.0';
 
 /// sidebar signal
 enum SideBarSignal {
@@ -38,10 +38,8 @@ enum ResponseEventAction {
 }
 
 const String logHintText = """
-- Introduced to the Log Book platform
-- Learnt how to use Log Book app to add my workdone
-- Initial introduction to Industrial Processes
-- Participated in group work with other interns,
+- Viết mô tả nội dung tài liệu.
+- Mô tả ngắn gọn, đầy đủ.
 """;
 
 class EncryptionDatabaseCodec {
