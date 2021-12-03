@@ -361,7 +361,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                         SizedBox(height: 30),
                                                         Center(
                                                           child: Text(
-                                                            'Add New LogBook Entry',
+                                                            'Tạo tài liệu mới',
                                                             style: kStyle(
                                                               size: 15,
                                                               color: textColor,
@@ -873,7 +873,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                   children: [
                     Center(
                       child: Text(
-                        'New LogBook Entry',
+                        'Tài liệu mới',
                         style: kStyle(
                           size: 23,
                           color: textColor,
@@ -882,7 +882,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                     ),
                     SizedBox(height: 30),
                     TextEntryField(
-                      title: 'Log Date',
+                      title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy')
                           .format(model.entryDate ?? DateTime.now()),
                       suffixIcon: InkWell(
@@ -1013,7 +1013,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                   children: [
                     Center(
                       child: Text(
-                        'Edit LogBook Entry',
+                        'Chỉnh sửa tài liệu',
                         style: kStyle(
                           size: 23,
                           color: textColor,

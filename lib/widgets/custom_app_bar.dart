@@ -29,6 +29,7 @@ class CustomAppBar extends StatelessWidget {
             ),
             Expanded(
               child: CollapsibleSidebar(
+                borderRadius: 5,
                 items: [
                   CollapsibleItem(
                     text: 'Văn bản',
@@ -43,7 +44,7 @@ class CustomAppBar extends StatelessWidget {
                   ),
                   CollapsibleItem(
                     text: 'Cài đặt',
-                    icon: Icons.search,
+                    icon: Icons.settings,
                     onPressed: () => {},
                   ),
                 ],
@@ -55,7 +56,7 @@ class CustomAppBar extends StatelessWidget {
                   ),
                 ],
                 titleBack: true,
-                titleBackIcon: Icons.menu_sharp,
+                titleBackIcon: Icons.menu_book,
                 // avatarImg: Container(
                 //     child: new LimitedBox(
                 //         maxHeight: 150,
