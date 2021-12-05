@@ -1,19 +1,21 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:momentum/momentum.dart';
 import 'package:overflow_view/overflow_view.dart';
-import 'package:relative_scale/relative_scale.dart';
 
 import 'package:log_book/components/index.dart';
 import 'package:log_book/constants.dart';
 import 'package:log_book/services/index.dart';
 import 'package:log_book/utils/index.dart';
 import 'package:log_book/widgets/index.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 import 'index.dart';
 
@@ -26,12 +28,12 @@ class _HomeViewState extends MomentumState<HomeView> {
   final ScrollController scrollController = ScrollController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  HomeViewController viewController;
-  DialogService dialogService;
+  late HomeViewController viewController;
+  late DialogService dialogService;
 
-  TextEditingController todoController;
-  TextEditingController workDone;
-  TextEditingController logDate;
+  late TextEditingController todoController;
+  late TextEditingController workDone;
+  late TextEditingController logDate;
 
   @override
   void initMomentumState() {
@@ -45,7 +47,7 @@ class _HomeViewState extends MomentumState<HomeView> {
       invoke: (event) {
         switch (event.action) {
           case ResponseEventAction.Success:
-            dialogService.showFlashBar(context, event.message, event.title);
+            dialogService.showFlashBar(context, event.message!, event.title!);
             clearControllers();
 
             // reload on success
@@ -55,9 +57,9 @@ class _HomeViewState extends MomentumState<HomeView> {
 
           case ResponseEventAction.DeleteTodo:
             dialogService
-                .showFlashDialogConfirm(context, event.message, event.title)
+                .showFlashDialogConfirm(context, event.message!, event.title!)
                 .then((answer) {
-              if (answer) {
+              if (answer!) {
                 viewController.deleteTodo(event.data);
               }
             });
@@ -66,9 +68,9 @@ class _HomeViewState extends MomentumState<HomeView> {
 
           case ResponseEventAction.DeleteLogEntry:
             dialogService
-                .showFlashDialogConfirm(context, event.message, event.title)
+                .showFlashDialogConfirm(context, event.message!, event.title!)
                 .then((answer) {
-              if (answer) {
+              if (answer!) {
                 viewController.deleteLogBook(event.data);
               }
             });
@@ -76,7 +78,7 @@ class _HomeViewState extends MomentumState<HomeView> {
             break;
 
           case ResponseEventAction.Error:
-            dialogService.showFlashBar(context, event.message, event.title);
+            dialogService.showFlashBar(context, event.message!, event.title!);
             clearControllers();
             break;
 
@@ -107,7 +109,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                   builder: (context, snapshot) {
                     final model = snapshot<HomeViewModel>();
 
-                    return model.loading
+                    return model.loading!
                         ? Center(
                             // TODO: Add shimmer loader
                             child: customLoader(
@@ -141,14 +143,13 @@ class _HomeViewState extends MomentumState<HomeView> {
                                               'Kho công văn',
                                               style: kStyle(
                                                 size: sy(25),
-                                                color: Colors.white,
                                               ),
                                             ),
                                             Spacer(),
                                             SlideInDown(
                                               child: ElevatedButton.icon(
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: Colors.blue,
+                                                  primary: Colors.amber,
                                                   minimumSize: Size(
                                                     sy(80),
                                                     sy(50),
@@ -158,88 +159,84 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                   await model.controller
                                                       .loadAll();
                                                 },
-                                                icon: Icon(Feather.refresh_ccw),
+                                                icon: Icon(
+                                                    CupertinoIcons.refresh),
                                                 label: Text(
                                                   'Refresh',
                                                 ),
                                               ),
                                             ),
                                             SizedBox(width: 20),
-                                            SlideInDown(
-                                              child: ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary:
-                                                      model.logBooks.isEmpty
-                                                          ? Colors.grey
-                                                          : Colors.blue,
-                                                  minimumSize: Size(
-                                                    sy(80),
-                                                    sy(50),
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  if (model.logBooks.isEmpty) {
-                                                    // avoid printing
-                                                  }
+                                            // SlideInDown(
+                                            //   child: ElevatedButton.icon(
+                                            //     style: ElevatedButton.styleFrom(
+                                            //       primary:
+                                            //           model.logBooks.isEmpty
+                                            //               ? Colors.grey
+                                            //               : Colors.amber,
+                                            //       minimumSize: Size(
+                                            //         sy(80),
+                                            //         sy(50),
+                                            //       ),
+                                            //     ),
+                                            //     onPressed: () {
+                                            //       if (model.logBooks.isEmpty) {
+                                            //         // avoid printing
+                                            //       }
 
-                                                  // else do it
-                                                  else {
-                                                    MomentumRouter.goto(
-                                                        context, PdfGenView);
-                                                  }
-                                                },
-                                                icon: Icon(Feather.printer),
-                                                label: Text(
-                                                  'Print LogBook',
-                                                ),
-                                              ),
-                                            ),
+                                            //       // else do it
+                                            //       else {
+                                            //         MomentumRouter.goto(
+                                            //             context, PdfGenView);
+                                            //       }
+                                            //     },
+                                            //     icon: Icon(Feather.printer),
+                                            //     label: Text(
+                                            //       'Print LogBook',
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
-                                        SizedBox(height: sy(40)),
+                                        Divider(
+                                          thickness: 2,
+                                        ),
+                                        // SizedBox(height: sy(40)),
                                         Row(
                                           children: [
-                                            Text(
-                                              'Bộ lọc',
-                                              style: kStyle(
-                                                size: sy(25),
-                                                color: Colors.white,
-                                              ),
-                                            ),
                                             Spacer(),
-                                            ZoomIn(
-                                              child: ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: Colors.blue,
-                                                  minimumSize: Size(
-                                                    sy(80),
-                                                    sy(40),
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  model.update(
-                                                      sideBarSignal:
-                                                          SideBarSignal
-                                                              .AddTodo);
-                                                },
-                                                icon: Icon(AntDesign.addfile),
-                                                label: Text(
-                                                  'New ToDo',
-                                                ),
-                                              ),
-                                            ),
+                                            // ZoomIn(
+                                            //   child: ElevatedButton.icon(
+                                            //     style: ElevatedButton.styleFrom(
+                                            //       primary: Colors.amber,
+                                            //       minimumSize: Size(
+                                            //         sy(80),
+                                            //         sy(40),
+                                            //       ),
+                                            //     ),
+                                            //     onPressed: () {
+                                            //       model.update(
+                                            //           sideBarSignal:
+                                            //               SideBarSignal
+                                            //                   .AddTodo);
+                                            //     },
+                                            //     icon: Icon(AntDesign.addfile),
+                                            //     label: Text(
+                                            //       'New ToDo',
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                         SizedBox(height: 10),
                                         Container(
-                                            height: sy(127),
+                                            height: sy(200),
                                             child: Column(
                                               children: [
                                                 TextField(
                                                   decoration: InputDecoration(
                                                     suffixIcon: Icon(
                                                       Icons.search,
-                                                      color: Colors.black,
                                                       size: 20.0,
                                                     ),
                                                     border: OutlineInputBorder(
@@ -251,16 +248,105 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                         'Tìm theo tên tài liệu',
                                                   ),
                                                 ),
+                                                TextEntryField(
+                                                  title: 'Tìm từ ngày',
+                                                  suffixIcon: InkWell(
+                                                    onTap: () async {
+                                                      final DateTime
+                                                          selectedDate =
+                                                          (await showDatePicker(
+                                                        context: context,
+                                                        initialDate:
+                                                            DateTime.now(),
+                                                        firstDate: DateTime
+                                                                .now()
+                                                            .subtract(Duration(
+                                                                days: 365)),
+                                                        lastDate: DateTime.now()
+                                                            .add(Duration(
+                                                                days: 120)),
+                                                      ))!;
+
+                                                      model.update(
+                                                          entryDate:
+                                                              selectedDate);
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      child: Center(
+                                                        child: Icon(
+                                                          CupertinoIcons
+                                                              .calendar,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                TextEntryField(
+                                                  title: 'Đến ngày',
+                                                  suffixIcon: InkWell(
+                                                    onTap: () async {
+                                                      final DateTime
+                                                          selectedDate =
+                                                          (await showDatePicker(
+                                                        context: context,
+                                                        initialDate:
+                                                            DateTime.now(),
+                                                        firstDate: DateTime
+                                                                .now()
+                                                            .subtract(Duration(
+                                                                days: 365)),
+                                                        lastDate: DateTime.now()
+                                                            .add(Duration(
+                                                                days: 120)),
+                                                      ))!;
+
+                                                      model.update(
+                                                          entryDate:
+                                                              selectedDate);
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      child: Center(
+                                                        child: Icon(
+                                                          CupertinoIcons
+                                                              .calendar,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ],
                                             )),
-                                        SizedBox(height: sy(40)),
+                                        Row(children: []),
                                         Row(
                                           children: [
                                             Text(
                                               'Tài liệu',
                                               style: kStyle(
                                                 size: sy(25),
-                                                color: Colors.white,
                                               ),
                                             ),
                                             Spacer(),
@@ -270,7 +356,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 radius: 10,
                                                 iconSize: 13,
                                                 backgroundColor: secondaryColor,
-                                                icon: Entypo.grid,
+                                                icon: CupertinoIcons.grid,
                                                 tooltip:
                                                     'show entries in staggered gridview mode',
                                                 onPressed: () {
@@ -287,7 +373,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 radius: 10,
                                                 iconSize: 13,
                                                 backgroundColor: secondaryColor,
-                                                icon: Entypo.list,
+                                                icon:
+                                                    CupertinoIcons.square_list,
                                                 tooltip:
                                                     'show entries in list view mode',
                                                 onPressed: () {
@@ -304,7 +391,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 radius: 10,
                                                 iconSize: 13,
                                                 backgroundColor: secondaryColor,
-                                                icon: Entypo.plus,
+                                                icon: CupertinoIcons.plus,
                                                 tooltip: 'add new entry',
                                                 onPressed: () {
                                                   model.update(
@@ -317,7 +404,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                           ],
                                         ),
                                         SizedBox(height: 20),
-                                        model.logBooks.isEmpty
+                                        model.logBooks!.isEmpty
                                             ? Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 10),
@@ -352,7 +439,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                               Alignment.center,
                                                           child: Center(
                                                             child: Icon(
-                                                              Entypo.open_book,
+                                                              CupertinoIcons
+                                                                  .book,
                                                               color: textColor,
                                                               size: sy(40),
                                                             ),
@@ -380,8 +468,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                     shrinkWrap: true,
                                                     itemBuilder:
                                                         (context, index) {
-                                                      final _logEntry =
-                                                          model.logBooks[index];
+                                                      final _logEntry = model
+                                                          .logBooks![index];
 
                                                       return SlideInUp(
                                                         child: ConstrainedBox(
@@ -402,6 +490,20 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           .all(
                                                                       Radius.circular(
                                                                           10)),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 2,
+                                                                  offset: Offset(
+                                                                      1,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
                                                             ),
                                                             child: Column(
                                                               children: [
@@ -411,7 +513,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           .end,
                                                                   children: [
                                                                     CustomButton(
-                                                                        icon: Entypo
+                                                                        icon: CupertinoIcons
                                                                             .eye,
                                                                         tooltip:
                                                                             'view more details',
@@ -429,8 +531,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                         width:
                                                                             15),
                                                                     CustomButton(
-                                                                      icon: Entypo
-                                                                          .edit,
+                                                                      icon: CupertinoIcons
+                                                                          .pencil,
                                                                       tooltip:
                                                                           'edit and update entry',
                                                                       onPressed:
@@ -448,7 +550,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                         width:
                                                                             15),
                                                                     CustomButton(
-                                                                      icon: AntDesign
+                                                                      icon: CupertinoIcons
                                                                           .delete,
                                                                       tooltip:
                                                                           'delete logbook entry',
@@ -465,13 +567,14 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                   children: [
                                                                     CircleAvatar(
                                                                       backgroundColor:
-                                                                          bgColor,
+                                                                          Colors
+                                                                              .transparent,
                                                                       radius:
                                                                           sy(30),
                                                                       child:
                                                                           Icon(
-                                                                        Entypo
-                                                                            .book,
+                                                                        CupertinoIcons
+                                                                            .book_circle_fill,
                                                                         color:
                                                                             textColor,
                                                                         size: sy(
@@ -483,7 +586,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                             8)),
                                                                     AutoSizeText(
                                                                       _logEntry
-                                                                          .workdone,
+                                                                          .workdone!,
                                                                       overflow:
                                                                           TextOverflow
                                                                               .ellipsis,
@@ -495,8 +598,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           kStyle(
                                                                         size:
                                                                             15,
-                                                                        color:
-                                                                            whiteColor,
                                                                       ),
                                                                       maxLines:
                                                                           4,
@@ -510,7 +611,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                               'dd-MMM-yyyy')
                                                                           .format(
                                                                         _logEntry
-                                                                            .date
+                                                                            .date!
                                                                             .toDateTime(),
                                                                       ),
                                                                       style:
@@ -535,7 +636,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                         (_, index) => SizedBox(
                                                             height: sy(25)),
                                                     itemCount:
-                                                        model.logBooks.length,
+                                                        model.logBooks!.length,
                                                   )
                                                 : StaggeredGridView
                                                     .countBuilder(
@@ -546,11 +647,11 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                     crossAxisSpacing: sy(30),
                                                     mainAxisSpacing: sy(40),
                                                     itemCount:
-                                                        model.logBooks.length,
+                                                        model.logBooks!.length,
                                                     itemBuilder:
                                                         (context, index) {
-                                                      final _logEntry =
-                                                          model.logBooks[index];
+                                                      final _logEntry = model
+                                                          .logBooks![index];
 
                                                       return ZoomIn(
                                                         child: Container(
@@ -568,6 +669,19 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                     Radius
                                                                         .circular(
                                                                             10)),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                spreadRadius: 1,
+                                                                blurRadius: 2,
+                                                                offset: Offset(
+                                                                    1,
+                                                                    3), // changes position of shadow
+                                                              ),
+                                                            ],
                                                           ),
                                                           child: Row(
                                                             crossAxisAlignment:
@@ -585,7 +699,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                       child:
                                                                           AutoSizeText(
                                                                         _logEntry
-                                                                            .workdone,
+                                                                            .workdone!,
                                                                         // overflow: TextOverflow.ellipsis,
                                                                         minFontSize:
                                                                             15,
@@ -595,8 +709,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                             kStyle(
                                                                           size:
                                                                               15,
-                                                                          color:
-                                                                              whiteColor,
                                                                         ),
                                                                         maxLines:
                                                                             8,
@@ -611,7 +723,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                               'dd-MMM-yyyy')
                                                                           .format(
                                                                         _logEntry
-                                                                            .date
+                                                                            .date!
                                                                             .toDateTime(),
                                                                       ),
                                                                       style:
@@ -638,7 +750,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                   spacing: 4,
                                                                   children: [
                                                                     CustomButton(
-                                                                        icon: Entypo
+                                                                        icon: CupertinoIcons
                                                                             .eye,
                                                                         tooltip:
                                                                             'view more details',
@@ -653,8 +765,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           );
                                                                         }),
                                                                     CustomButton(
-                                                                      icon: Entypo
-                                                                          .edit,
+                                                                      icon: CupertinoIcons
+                                                                          .pencil,
                                                                       tooltip:
                                                                           'edit and update entry',
                                                                       onPressed:
@@ -669,7 +781,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                       },
                                                                     ),
                                                                     CustomButton(
-                                                                      icon: AntDesign
+                                                                      icon: CupertinoIcons
                                                                           .delete,
                                                                       tooltip:
                                                                           'delete logbook entry',
@@ -794,8 +906,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              if (formKey.currentState.validate()) {
-                                formKey.currentState.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
                                 await model.controller
                                     .addTodo(todoController.text);
                               }
@@ -803,7 +915,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                             child: Container(
                               padding: EdgeInsets.all(defaultPadding),
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.amber,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                               ),
@@ -840,7 +952,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                   'Cancel',
                                   style: kStyle(
                                     size: 23,
-                                    color: whiteColor,
                                   ),
                                 ),
                               ),
@@ -887,13 +998,13 @@ class _HomeViewState extends MomentumState<HomeView> {
                           .format(model.entryDate ?? DateTime.now()),
                       suffixIcon: InkWell(
                         onTap: () async {
-                          final DateTime selectedDate = await showDatePicker(
+                          final DateTime selectedDate = (await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate:
                                 DateTime.now().subtract(Duration(days: 365)),
                             lastDate: DateTime.now().add(Duration(days: 120)),
-                          );
+                          ))!;
 
                           model.update(entryDate: selectedDate);
                         },
@@ -902,14 +1013,12 @@ class _HomeViewState extends MomentumState<HomeView> {
                           width: 40,
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: bgColor,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Center(
                             child: Icon(
-                              AntDesign.calendar,
-                              color: whiteColor,
+                              CupertinoIcons.calendar,
                               size: 20,
                             ),
                           ),
@@ -933,19 +1042,40 @@ class _HomeViewState extends MomentumState<HomeView> {
                       onPressed: () {
                         MomentumRouter.goto(context, PdfGenView);
                       },
-                      icon: Icon(Feather.eye),
+                      icon: Icon(CupertinoIcons.eye),
                       label: Text(
                         'Xem nội dung',
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                      ),
+                      onPressed: () async {
+                        FilePickerResult? result =
+                            await FilePicker.platform.pickFiles();
+
+                        if (result != null) {
+                          String filePath = result.files.single.path.toString();
+                          File file = File(filePath);
+                        } else {
+                          // User canceled the picker
+                        }
+                      },
+                      icon: Icon(Icons.file_upload),
+                      label: Text(
+                        'Chèn file',
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              if (formKey.currentState.validate()) {
-                                formKey.currentState.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
                                 await model.controller
                                     .insertLogBook(workDone.text);
                               }
@@ -953,7 +1083,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                             child: Container(
                               padding: EdgeInsets.all(defaultPadding),
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.amber,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                               ),
@@ -992,7 +1122,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                   'Cancel',
                                   style: kStyle(
                                     size: 23,
-                                    color: whiteColor,
                                   ),
                                 ),
                               ),
@@ -1036,8 +1165,10 @@ class _HomeViewState extends MomentumState<HomeView> {
                     TextEntryField(
                       title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
-                          model.editLogBook.date.toDateTime() ??
-                              DateTime.now()),
+                          model.editLogBook != null ||
+                                  model.editLogBook!.date != null
+                              ? model.editLogBook!.date!.toDateTime()
+                              : DateTime.now()),
                     ),
                     SizedBox(height: 30),
                     formEntryField(
@@ -1045,7 +1176,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                         context: context,
                         // controller: workDone,
                         maxLines: 13,
-                        initialText: model.editLogBook.workdone,
+                        initialText: model.editLogBook!.workdone!,
                         autoFocus: true,
                         hintText: logHintText,
                         customOnChangeCallback: (editedEntry) {
@@ -1060,7 +1191,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                       onPressed: () {
                         MomentumRouter.goto(context, PdfGenView);
                       },
-                      icon: Icon(Feather.eye),
+                      icon: Icon(CupertinoIcons.eye),
                       label: Text(
                         'Xem nội dung',
                       ),
@@ -1073,7 +1204,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                       onPressed: () {
                         MomentumRouter.goto(context, PdfGenView);
                       },
-                      icon: Icon(Feather.file),
+                      icon: Icon(Icons.file_upload),
                       label: Text(
                         'Chèn file',
                       ),
@@ -1084,11 +1215,11 @@ class _HomeViewState extends MomentumState<HomeView> {
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              if (formKey.currentState.validate()) {
-                                formKey.currentState.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
 
                                 final _entry = model.editLogBook;
-                                _entry.workdone = workDone.text;
+                                _entry!.workdone = workDone.text;
 
                                 await model.controller.updateLogBook(_entry);
                               }
@@ -1137,7 +1268,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                   'Cancel',
                                   style: kStyle(
                                     size: 23,
-                                    color: whiteColor,
                                   ),
                                 ),
                               ),
@@ -1181,13 +1311,16 @@ class _HomeViewState extends MomentumState<HomeView> {
                     TextEntryField(
                       title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
-                        model.editLogBook.date.toDateTime() ?? DateTime.now(),
+                        model.editLogBook != null ||
+                                model.editLogBook!.date != null
+                            ? model.editLogBook!.date!.toDateTime()
+                            : DateTime.now(),
                       ),
                     ),
                     SizedBox(height: 30),
                     LogEntryField(
                       title: 'Mô tả',
-                      initialText: model.editLogBook.workdone,
+                      initialText: model.editLogBook!.workdone!,
                       fieldHeight: null,
                       maxLines: 13,
                     ),
@@ -1215,7 +1348,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                             'Cancel',
                             style: kStyle(
                               size: 23,
-                              color: whiteColor,
                             ),
                           ),
                         ),

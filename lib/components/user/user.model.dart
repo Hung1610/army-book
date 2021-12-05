@@ -9,14 +9,14 @@ class UserModel extends MomentumModel<UserController> {
     this.name,
   }) : super(controller);
 
-  final bool loading;
-  final String name;
+  final bool? loading;
+  final String? name;
 
   @override
   void update({
-    bool loading,
-    bool isAdmin,
-    String name,
+    bool? loading,
+    bool? isAdmin,
+    String? name,
   }) {
     UserModel(
       controller,
@@ -32,7 +32,7 @@ class UserModel extends MomentumModel<UserController> {
     };
   }
 
-  UserModel fromJson(Map<String, dynamic> map) {
+  UserModel? fromJson(Map<String, dynamic>? map) {
     if (map == null) return null;
 
     return UserModel(

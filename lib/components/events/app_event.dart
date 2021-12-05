@@ -1,9 +1,9 @@
 import 'package:log_book/constants.dart';
 
 class AppEvent {
-  final ResponseEventAction action;
-  final String title;
-  final String message;
+  final ResponseEventAction? action;
+  final String? title;
+  final String? message;
 
   /// optional data passed on event
   final data;

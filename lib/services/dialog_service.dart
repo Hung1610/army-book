@@ -164,7 +164,7 @@ class DialogService extends MomentumService {
     );
   }
 
-  Future<bool> showFlashDialogConfirm(
+  Future<bool?> showFlashDialogConfirm(
       BuildContext context, String info, String title) async {
     var res = showFlash<bool>(
       context: context,
@@ -223,7 +223,7 @@ class DialogService extends MomentumService {
     return res;
   }
 
-  Future<bool> showDialogConfirmation(
+  Future<bool?> showDialogConfirmation(
       BuildContext context, String info, String title) async {
     var res = showFlash<bool>(
       context: context,
@@ -270,15 +270,15 @@ class DialogService extends MomentumService {
   }
 
   void showFloatingFlushbar({
-    BuildContext context,
-    String title,
-    String message,
+    BuildContext? context,
+    String? title,
+    String? message,
     bool showOnTop: true,
     bool warning: false, // to change color of popup
     bool autoDismiss: false,
   }) {
     showFlash(
-      context: context,
+      context: context!,
       duration: autoDismiss ? null : const Duration(milliseconds: 3000),
       //persistent: false,
       builder: (context, controller) {
@@ -299,7 +299,7 @@ class DialogService extends MomentumService {
           reverseAnimationCurve: Curves.slowMiddle,
           child: FlashBar(
             title: Text(
-              title,
+              title!,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -307,7 +307,7 @@ class DialogService extends MomentumService {
               ),
             ),
             message: Text(
-              message,
+              message!,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,

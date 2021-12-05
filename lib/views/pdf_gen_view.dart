@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/default_styles.dart';
 import 'package:flutter_quill/widgets/editor.dart';
@@ -101,6 +101,7 @@ class PdfGenView extends StatelessWidget {
       child: CustomAppBar(
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.grey,
             title: Text('Nội dung'),
             leading: IconButton(
               icon: Icon(
@@ -115,14 +116,14 @@ class PdfGenView extends StatelessWidget {
                   tooltip: 'Lưu nội dung ra .docx',
                   splashRadius: 5,
                   hoverColor: secondaryColor,
-                  icon: Icon(FontAwesome.file_word_o),
+                  icon: Icon(FontAwesomeIcons.fileWord),
                   onPressed: () {
                     final dialogService =
                         Momentum.service<DialogService>(context);
                     final bytes =
                         Momentum.controller<PdfPrinterViewController>(context)
                             .model
-                            ?.logBookData;
+                            .logBookData;
 
                     if (bytes != null) {
                       Momentum.service<AppService>(context)
@@ -132,7 +133,7 @@ class PdfGenView extends StatelessWidget {
                           case ResponseAction.Success:
                             dialogService.showFlashInfoDialog(
                               context,
-                              value.message,
+                              value.message!,
                               'LogBook',
                             );
 
@@ -140,7 +141,7 @@ class PdfGenView extends StatelessWidget {
                           default:
                             dialogService.showFlashInfoDialog(
                               context,
-                              value.message,
+                              value.message!,
                               'LogBook',
                             );
                         }
@@ -221,7 +222,7 @@ class PdfGenView extends StatelessWidget {
                               null),
                           color: Colors.black));
 
-                  return model.loading
+                  return model.loading!
                       ? Center(
                           child: customLoader(
                             heightFromTop: height * 0.3,

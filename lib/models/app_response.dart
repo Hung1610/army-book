@@ -2,8 +2,8 @@ import 'package:log_book/constants.dart';
 
 /// general response model for services
 class AppResponse {
-  final ResponseAction action;
-  final String message;
+  final ResponseAction? action;
+  final String? message;
   final data;
 
   AppResponse({

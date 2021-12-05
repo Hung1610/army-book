@@ -1,7 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
-import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:log_book/utils/color_themes.dart';
 import 'package:log_book/views/index.dart';
 
 import 'package:log_book/widgets/index.dart';
@@ -10,7 +10,7 @@ import 'package:momentum/momentum.dart';
 class CustomAppBar extends StatelessWidget {
   final Widget child;
 
-  const CustomAppBar({Key key, @required this.child}) : super(key: key);
+  const CustomAppBar({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,14 @@ class CustomAppBar extends StatelessWidget {
                           child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xff2B3138),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.black.withOpacity(0.5),
+                      //     spreadRadius: 5,
+                      //     blurRadius: 7,
+                      //     offset: Offset(0, 3), // changes position of shadow
+                      //   ),
+                      // ],
                     ),
                   ))),
                   WindowButtons(),
@@ -43,6 +43,10 @@ class CustomAppBar extends StatelessWidget {
             ),
             Expanded(
               child: CollapsibleSidebar(
+                backgroundColor: Colors.white.withOpacity(0.9),
+                unselectedTextColor: Colors.blueGrey,
+                unselectedIconColor: Colors.red.shade900,
+                selectedIconColor: Colors.red.shade400,
                 borderRadius: 5,
                 items: [
                   CollapsibleItem(
@@ -71,12 +75,7 @@ class CustomAppBar extends StatelessWidget {
                 ],
                 titleBack: true,
                 titleBackIcon: Icons.menu_book,
-                // avatarImg: Container(
-                //     child: new LimitedBox(
-                //         maxHeight: 150,
-                //         child: new Image(
-                //             image: new AssetImage('assets/images/app_icon.png'),
-                //             fit: BoxFit.scaleDown))),
+                // avatarImg: AssetImage('assets/images/app_icon.png'),
                 onTitleTap: () {
                   //custom callback function called when title avatar or back icon is pressed
                   MomentumRouter.goto(context, SplashView);

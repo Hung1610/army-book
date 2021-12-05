@@ -4,9 +4,9 @@ import 'package:sembast/timestamp.dart';
 
 /// a simple quick todo class model
 class Todo {
-  int id;
-  final String todo;
-  final Timestamp createdOn;
+  int? id;
+  final String? todo;
+  final Timestamp? createdOn;
 
   Todo({
     this.id,

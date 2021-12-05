@@ -30,7 +30,7 @@ class AppService extends MomentumService {
       final appDocumentDir = await _provider.getApplicationDocumentsPath();
 
       final String _subDir = 'LogBook';
-      final String _logBkDir = join(appDocumentDir, _subDir);
+      final String _logBkDir = join(appDocumentDir!, _subDir);
 
       File log = File(join(_logBkDir, fileName));
 

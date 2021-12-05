@@ -3,20 +3,19 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData colorTheme = ThemeData(
-  brightness: Brightness.dark,
+  brightness: Brightness.light,
   primaryColor: bgColor,
-  scaffoldBackgroundColor: bgColor,
+  scaffoldBackgroundColor: Colors.white.withOpacity(0.8),
   visualDensity: VisualDensity.adaptivePlatformDensity,
   fontFamily: 'Roboto',
   canvasColor: secondaryColor,
 );
 
-const priColor = Colors.white;
-const primaryColor = Color(0xFF2697FF);
-const secondaryColor = Color(0xFF2A2D3E);
-const bgColor = Color(0xFF212332);
+const priColor = Colors.black;
+const secondaryColor = Colors.white;
+const bgColor = Colors.white;
 
-final textColor = Colors.white.withOpacity(0.6);
+final textColor = Colors.black.withOpacity(0.6);
 
 final whiteColor = Colors.white.withOpacity(0.9);
 const mainColor = Colors.grey;

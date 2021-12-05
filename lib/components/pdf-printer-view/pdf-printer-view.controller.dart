@@ -43,7 +43,7 @@ class PdfPrinterViewController extends MomentumController<PdfPrinterViewModel> {
       _entries.add(innerList);
     }
 
-    List<List> data = List<List>.from(model.logBookEntries);
+    List<List> data = List<List>.from(model.logBookEntries!);
     data.addAll(_entries);
 
     model.update(logBookEntries: data, loading: false);

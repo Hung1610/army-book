@@ -17,7 +17,7 @@ class AppDatabase {
   static AppDatabase get instance => _singleton;
 
   // Completer is used for transforming sync to async functions
-  Completer<Database> _dbOpenCompleter;
+  Completer<Database>? _dbOpenCompleter;
 
   // a private constructor. Allows us to create instances of AppDatabase
   AppDatabase._();
@@ -33,7 +33,7 @@ class AppDatabase {
 
     // if db is already opened, awaiting the future will happen instantly
     // otherwise, awaiting the returned future will take some time - until complete() is called on the Completer in _openDatabase() below
-    return _dbOpenCompleter.future;
+    return _dbOpenCompleter!.future;
   }
 
   Future _openDatabase() async {
@@ -70,6 +70,6 @@ class AppDatabase {
     //final database = await databaseFactoryIo.openDatabase(dbPath);
 
     // any code awaiting the Completer's future will now start executing
-    _dbOpenCompleter.complete(database);
+    _dbOpenCompleter!.complete(database);
   }
 }

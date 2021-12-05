@@ -54,7 +54,7 @@ class _EncryptDecoder extends Converter<String, Object> {
   _EncryptDecoder(this.salsa20);
 
   @override
-  dynamic convert(String input) {
+  Object convert(String input) {
     // Read the initial value that was prepended
     assert(input.length >= 12);
     final iv = base64.decode(input.substring(0, 12));
@@ -73,8 +73,8 @@ class _EncryptDecoder extends Converter<String, Object> {
 
 /// Salsa20 based Codec
 class _EncryptCodec extends Codec<Object, String> {
-  _EncryptEncoder _encoder;
-  _EncryptDecoder _decoder;
+  late _EncryptEncoder _encoder;
+  late _EncryptDecoder _decoder;
 
   _EncryptCodec(Uint8List passwordBytes) {
     var salsa20 = Salsa20(Key(passwordBytes));
@@ -113,8 +113,7 @@ const _encryptCodecSignature = 'encrypt';
 ///
 /// // ...your database is ready to use
 /// ```
-SembastCodec getEncryptSembastCodec({@required String password}) =>
-    SembastCodec(
+SembastCodec getEncryptSembastCodec({required String password}) => SembastCodec(
       signature: _encryptCodecSignature,
       codec: _EncryptCodec(
         _generateEncryptPassword(password),

@@ -47,7 +47,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
       case ResponseAction.Success:
         // update model
         List<Todo> todos = response.data;
-        var _todos = List<Todo>.from(model.todos);
+        var _todos = List<Todo>.from(model.todos!);
 
         _todos.addAll(todos);
 
@@ -85,7 +85,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
       case ResponseAction.Success:
         // update model
         List<LogBook> logbooks = response.data;
-        var _logbooks = List<LogBook>.from(model.logBooks);
+        var _logbooks = List<LogBook>.from(model.logBooks!);
 
         _logbooks.addAll(logbooks);
 
@@ -174,7 +174,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     model.update(loading: true);
 
-    final logBook = model.logBooks.elementAt(index);
+    final logBook = model.logBooks!.elementAt(index);
 
     final response = await _service.deleteLogBook(logBook);
 
@@ -214,7 +214,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     final logBook = LogBook(
       workdone: workdone.trim(),
-      date: Timestamp.fromDateTime(model.entryDate),
+      date: Timestamp.fromDateTime(model.entryDate!),
     );
 
     final response = await _service.addLogBook(logBook);
@@ -253,7 +253,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     model.update(loading: true);
 
-    final todo = model.todos.elementAt(index);
+    final todo = model.todos!.elementAt(index);
 
     final response = await _service.deleteTodo(todo);
 

@@ -5,21 +5,21 @@ import 'package:log_book/utils/index.dart';
 import 'package:relative_scale/relative_scale.dart';
 
 Widget formEntryField({
-  String title,
-  @required BuildContext context,
-  TextEditingController controller,
-  String validateError,
+  String? title,
+  required BuildContext context,
+  TextEditingController? controller,
+  String? validateError,
   String hintText: '',
-  String initialText,
+  String? initialText,
   bool autoFocus: false,
   int maxLines: 1,
   bool obscureText: false,
   bool isPhoneField: false,
   bool readOnly: false,
   bool unfocus: false,
-  Color titleColor,
+  Color? titleColor,
   bool enforceMaxLength: false,
-  int maxLength,
+  int? maxLength,
   var customOnChangeCallback,
 
   /// determine if this is a custom phone input field or general textfield. Text by default
@@ -35,7 +35,7 @@ Widget formEntryField({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              title,
+              title!,
               style: kStyle(),
             ),
             customTextField(
@@ -63,9 +63,9 @@ Widget formEntryField({
 }
 
 Widget customTextField({
-  TextEditingController controller,
-  BuildContext context,
-  String initialText,
+  TextEditingController? controller,
+  BuildContext? context,
+  String? initialText,
   String hintText: '',
   int maxLines: 1,
   bool readOnly: false,
@@ -75,8 +75,8 @@ Widget customTextField({
   bool autoFocus: false,
   var customOnChangeCallback,
   bool enforceMaxLength: false,
-  int maxLength,
-  String errorString: 'this field is required',
+  int? maxLength,
+  String? errorString: 'this field is required',
   Widget suffixIcon: const SizedBox.shrink(),
 }) {
   const double _radius = 5.0;
@@ -100,14 +100,14 @@ Widget customTextField({
             : MaxLengthEnforcement.none,
         obscureText: obscureText,
         validator: (value) {
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return errorString;
           }
           return null;
         },
         onEditingComplete: () => unfocus
-            ? FocusScope.of(context).unfocus()
-            : FocusScope.of(context).nextFocus(),
+            ? FocusScope.of(context!).unfocus()
+            : FocusScope.of(context!).nextFocus(),
         onChanged: customOnChangeCallback,
         decoration: InputDecoration(
           labelText: labelText,

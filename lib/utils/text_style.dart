@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'index.dart';
 
 TextStyle kStyle({
-  Color color,
-  double size,
+  Color? color,
+  double? size,
   bool italize: false,
 }) {
   return TextStyle(

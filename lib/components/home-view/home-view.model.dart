@@ -18,29 +18,29 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
     this.editLogBook,
   }) : super(controller);
 
-  final SideBarSignal sideBarSignal;
-  final List<Todo> todos;
-  final List<LogBook> logBooks;
-  final bool loading;
-  final DateTime entryDate;
-  final bool sideBarLoading;
-  final LogBook editLogBook;
-  final ViewMode viewMode;
+  final SideBarSignal? sideBarSignal;
+  final List<Todo>? todos;
+  final List<LogBook>? logBooks;
+  final bool? loading;
+  final DateTime? entryDate;
+  final bool? sideBarLoading;
+  final LogBook? editLogBook;
+  final ViewMode? viewMode;
 
   @override
   void update({
-    SideBarSignal sideBarSignal,
-    List<Todo> todos,
-    List<LogBook> logBooks,
-    bool loading,
-    DateTime entryDate,
-    bool sideBarLoading,
-    LogBook editLogBook,
-    ViewMode viewMode,
+    SideBarSignal? sideBarSignal,
+    List<Todo>? todos,
+    List<LogBook>? logBooks,
+    bool? loading,
+    DateTime? entryDate,
+    bool? sideBarLoading,
+    LogBook? editLogBook,
+    ViewMode? viewMode,
   }) {
     HomeViewModel(
       controller,
-      viewMode:  viewMode ?? this.viewMode,
+      viewMode: viewMode ?? this.viewMode,
       entryDate: entryDate ?? this.entryDate,
       sideBarSignal: sideBarSignal ?? this.sideBarSignal,
       todos: todos ?? this.todos,

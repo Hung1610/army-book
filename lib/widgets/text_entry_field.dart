@@ -6,15 +6,15 @@ import 'package:log_book/utils/index.dart';
 
 class TextEntryField extends StatelessWidget {
   final String title;
-  final String initialText;
+  final String? initialText;
   final double fieldHeight;
-  final int maxLines;
+  final int? maxLines;
   final Widget suffixIcon;
 
   const TextEntryField({
-    Key key,
-    @required this.title,
-    @required this.initialText,
+    Key? key,
+    required this.title,
+    this.initialText,
     this.fieldHeight: 50,
     this.maxLines,
     this.suffixIcon: const SizedBox.shrink(),
@@ -80,14 +80,14 @@ class TextEntryField extends StatelessWidget {
 
 class LogEntryField extends StatelessWidget {
   final String title;
-  final String initialText;
-  final double fieldHeight;
-  final int maxLines;
+  final String? initialText;
+  final double? fieldHeight;
+  final int? maxLines;
 
   const LogEntryField({
-    Key key,
-    @required this.title,
-    @required this.initialText,
+    Key? key,
+    required this.title,
+    required this.initialText,
     this.fieldHeight: 50,
     this.maxLines,
   }) : super(key: key);

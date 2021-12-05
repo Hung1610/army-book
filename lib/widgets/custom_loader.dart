@@ -87,12 +87,12 @@ Widget customLoader({
 }
 
 class _InitLoader extends StatelessWidget {
-  final double heightFromTop;
-  final String loaderText;
-  final int loaderType;
+  final double? heightFromTop;
+  final String? loaderText;
+  final int? loaderType;
 
   const _InitLoader(
-      {Key key, this.heightFromTop, this.loaderText, this.loaderType})
+      {Key? key, this.heightFromTop, this.loaderText, this.loaderType})
       : super(key: key);
 
   @override
@@ -101,7 +101,7 @@ class _InitLoader extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
         child: Center(
-          child: _mainLoader(heightFromTop, loaderText, 1),
+          child: _mainLoader(heightFromTop!, loaderText!, 1),
         ),
       ),
     );
