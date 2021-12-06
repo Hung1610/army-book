@@ -71,6 +71,19 @@ class Dao {
     return _logBooks;
   }
 
+  /// get all logbooks
+  Future<LogBook?> getSingleLogBook(int index) async {
+    final finder = Finder(filter: Filter.byKey(index));
+
+    final logBookSnapshot =
+        await _logbookStore.findFirst(await _db, finder: finder);
+
+    if (logBookSnapshot == null) return null;
+
+    final book = LogBook.fromMap(logBookSnapshot.value);
+    return book;
+  }
+
   // ---------------------- todo CRUD ---------------------------------------------------------
   Future<int> insertTodo(Todo todo) async {
     var recordID = await _todoStore.add(await _db, todo.toMap());

@@ -201,4 +201,25 @@ class AppService extends MomentumService {
       );
     }
   }
+
+  Future<AppResponse> getLogBookSingle(int index) async {
+    try {
+      final logBks = await _dao.getSingleLogBook(index);
+
+      return AppResponse(
+        data: logBks,
+        action: ResponseAction.Success,
+        message: 'success',
+      );
+    }
+
+    // catch error, if any
+    catch (e) {
+      print(e.toString());
+      return AppResponse(
+        action: ResponseAction.Error,
+        message: e.toString(),
+      );
+    }
+  }
 }

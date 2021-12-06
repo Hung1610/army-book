@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:log_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:flutter/material.dart';
@@ -21,8 +25,24 @@ import 'package:log_book/services/index.dart';
 import 'package:log_book/utils/index.dart';
 import 'package:log_book/widgets/index.dart';
 
-class PdfGenView extends StatelessWidget {
+class PdfGenView extends StatefulWidget {
+  @override
+  _PdfGenViewState createState() => _PdfGenViewState();
+}
+
+class _PdfGenViewState extends MomentumState<PdfGenView> {
+  late PdfPrinterViewController viewController;
   final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initMomentumState() {
+    viewController = Momentum.controller<PdfPrinterViewController>(context);
+
+    final param = MomentumRouter.getParam<PdfPrinterViewParam>(context);
+    viewController.model.update(logBookId: param!.logBookId);
+
+    super.initMomentumState();
+  }
 
   pw.Widget _contentTable(pw.Context context, List<List> dataRecords) {
     final tableHeaders = [
@@ -95,7 +115,21 @@ class PdfGenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuillController _quillController = QuillController.basic();
+    final model = viewController.model;
+
+    var defaultTextStyle = DefaultTextStyle.of(context)
+        .style
+        .copyWith(fontFamily: 'TimesNewRoman');
+
+    final initialDocument = model.logBook != null
+        ? model.logBook!.jsonContent != null
+            ? fq.Document.fromJson(jsonDecode(model.logBook!.jsonContent!))
+            : fq.Document()
+        : fq.Document();
+
+    QuillController _quillController = QuillController(
+        document: initialDocument,
+        selection: TextSelection.collapsed(offset: 0));
 
     return SafeArea(
       child: CustomAppBar(
@@ -114,9 +148,7 @@ class PdfGenView extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: IconButton(
                   tooltip: 'Lưu nội dung ra .docx',
-                  splashRadius: 5,
-                  hoverColor: secondaryColor,
-                  icon: Icon(FontAwesomeIcons.fileWord),
+                  icon: Icon(FontAwesomeIcons.solidFileWord),
                   onPressed: () {
                     final dialogService =
                         Momentum.service<DialogService>(context);
@@ -159,18 +191,49 @@ class PdfGenView extends StatelessWidget {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: IconButton(
+                  tooltip: 'Lưu nội dung',
+                  // hoverColor: secondaryColor,
+                  icon: Icon(CupertinoIcons.pen),
+                  onPressed: () {
+                    final dialogService =
+                        Momentum.service<DialogService>(context);
+
+                    var json = jsonEncode(
+                        _quillController.document.toDelta().toJson());
+
+                    var entry = model.logBook;
+                    entry!.jsonContent = json;
+
+                    viewController.updateLogBook(entry).then((value) {
+                      switch (value.action) {
+                        case ResponseAction.Success:
+                          dialogService.showFlashBar(
+                            context,
+                            value.message!,
+                            'LogBook',
+                          );
+
+                          break;
+                        default:
+                          dialogService.showFlashBar(
+                            context,
+                            value.message!,
+                            'LogBook',
+                          );
+                      }
+                    });
+                  },
+                ),
+              ),
             ],
           ),
           body: RelativeBuilder(builder: (context, height, width, sy, sx) {
             return MomentumBuilder(
                 controllers: [PdfPrinterViewController],
                 builder: (context, snapshot) {
-                  final model = snapshot<PdfPrinterViewModel>();
-
-                  var defaultTextStyle = DefaultTextStyle.of(context)
-                      .style
-                      .copyWith(fontFamily: 'TimesNewRoman');
-
                   QuillEditor quillEditor = QuillEditor(
                       controller: _quillController,
                       focusNode: _focusNode,

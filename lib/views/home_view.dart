@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
+import 'package:log_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:momentum/momentum.dart';
 import 'package:overflow_view/overflow_view.dart';
 
@@ -1189,7 +1190,9 @@ class _HomeViewState extends MomentumState<HomeView> {
                         primary: Colors.blueGrey,
                       ),
                       onPressed: () {
-                        MomentumRouter.goto(context, PdfGenView);
+                        MomentumRouter.goto(context, PdfGenView,
+                            params: PdfPrinterViewParam(
+                                logBookId: model.editLogBook!.id));
                       },
                       icon: Icon(CupertinoIcons.eye),
                       label: Text(
