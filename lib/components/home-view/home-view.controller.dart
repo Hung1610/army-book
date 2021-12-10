@@ -206,7 +206,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
   }
 
   /// add logbook
-  Future<void> insertLogBook(String workdone) async {
+  Future<void> insertLogBook(String workdone, String name) async {
     // service DI
     final _service = service<AppService>();
 
@@ -214,6 +214,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     final logBook = LogBook(
       workdone: workdone.trim(),
+      name: name.trim(),
       date: Timestamp.fromDateTime(model.entryDate!),
     );
 

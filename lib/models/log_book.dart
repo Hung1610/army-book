@@ -5,16 +5,24 @@ import 'package:sembast/timestamp.dart';
 /// main logbook class
 class LogBook {
   int? id; // auto incremented, used by sembast db
+  String? name;
   String? workdone;
   String? jsonContent;
   String? filePath;
   final Timestamp? date;
 
-  LogBook({this.id, this.workdone, this.date, this.jsonContent, this.filePath});
+  LogBook(
+      {this.id,
+      this.name,
+      this.workdone,
+      this.date,
+      this.jsonContent,
+      this.filePath});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'name': name,
       'workdone': workdone,
       'date': date,
       'jsonContent': jsonContent,
@@ -25,6 +33,7 @@ class LogBook {
   factory LogBook.fromMap(Map<String, dynamic> map) {
     return LogBook(
       id: map['id'] ?? 0,
+      name: map['name'] ?? '',
       workdone: map['workdone'] ?? '',
       date: map['date'],
       jsonContent: map['jsonContent'],

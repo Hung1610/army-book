@@ -9,6 +9,7 @@ import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:log_book/constants.dart';
 import 'package:log_book/data/index.dart';
 import 'package:log_book/models/index.dart';
+import 'package:sembast/sembast.dart';
 
 // service class to perform CRUD operations against sembast db
 // @DonnC
@@ -181,9 +182,19 @@ class AppService extends MomentumService {
     }
   }
 
-  Future<AppResponse> getLogBooks({bool descendSort: false}) async {
+  Future<AppResponse> getLogBooks(
+      {bool descendSort: false,
+      String? name: null,
+      DateTime? from: null,
+      DateTime? to: null}) async {
     try {
-      final logBks = await _dao.getAllLogBooks(descendSort: descendSort);
+      Filter? filter = Filter.custom((record) => true);
+
+      if (name != null)
+        filter = Filter.and([filter, Filter.matches('name', name)]);
+
+      final logBks =
+          await _dao.getAllLogBooks(descendSort: descendSort, filter: filter);
 
       return AppResponse(
         data: logBks,

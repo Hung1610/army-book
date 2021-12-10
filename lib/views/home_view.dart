@@ -34,6 +34,7 @@ class _HomeViewState extends MomentumState<HomeView> {
 
   late TextEditingController todoController;
   late TextEditingController workDone;
+  late TextEditingController name;
   late TextEditingController logDate;
 
   @override
@@ -538,6 +539,11 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           'edit and update entry',
                                                                       onPressed:
                                                                           () {
+                                                                        name.text =
+                                                                            _logEntry.name!;
+                                                                        workDone.text =
+                                                                            _logEntry.workdone!;
+
                                                                         model
                                                                             .update(
                                                                           sideBarSignal:
@@ -993,6 +999,14 @@ class _HomeViewState extends MomentumState<HomeView> {
                       ),
                     ),
                     SizedBox(height: 30),
+                    formEntryField(
+                      title: 'Tên tài liệu',
+                      context: context,
+                      controller: name,
+                      maxLines: 1,
+                      autoFocus: true,
+                      validateError: 'Tài liệu cần có tên',
+                    ),
                     TextEntryField(
                       title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy')
@@ -1078,7 +1092,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
                                 await model.controller
-                                    .insertLogBook(workDone.text);
+                                    .insertLogBook(workDone.text, name.text);
                               }
                             },
                             child: Container(
@@ -1163,6 +1177,20 @@ class _HomeViewState extends MomentumState<HomeView> {
                       ),
                     ),
                     SizedBox(height: 30),
+                    formEntryField(
+                      title: 'Tên tài liệu',
+                      context: context,
+                      controller: name,
+                      maxLines: 1,
+                      // initialText: model.editLogBook!.name!,
+                      autoFocus: true,
+                      // hintText: logHintText,
+                      // customOnChangeCallback: (editedEntry) {
+                      //   setState(() {
+                      //     name.text = editedEntry;
+                      //   });
+                      // }
+                    ),
                     TextEntryField(
                       title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
@@ -1173,18 +1201,19 @@ class _HomeViewState extends MomentumState<HomeView> {
                     ),
                     SizedBox(height: 30),
                     formEntryField(
-                        title: 'Mô tả',
-                        context: context,
-                        // controller: workDone,
-                        maxLines: 13,
-                        initialText: model.editLogBook!.workdone!,
-                        autoFocus: true,
-                        hintText: logHintText,
-                        customOnChangeCallback: (editedEntry) {
-                          setState(() {
-                            workDone.text = editedEntry;
-                          });
-                        }),
+                      title: 'Mô tả',
+                      context: context,
+                      controller: workDone,
+                      maxLines: 13,
+                      // initialText: model.editLogBook!.workdone!,
+                      autoFocus: true,
+                      hintText: logHintText,
+                      // customOnChangeCallback: (editedEntry) {
+                      //   setState(() {
+                      //     workDone.text = editedEntry;
+                      //   });
+                      // }
+                    ),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blueGrey,
@@ -1223,6 +1252,7 @@ class _HomeViewState extends MomentumState<HomeView> {
 
                                 final _entry = model.editLogBook;
                                 _entry!.workdone = workDone.text;
+                                _entry.name = name.text;
 
                                 await model.controller.updateLogBook(_entry);
                               }
@@ -1311,6 +1341,12 @@ class _HomeViewState extends MomentumState<HomeView> {
                       ),
                     ),
                     SizedBox(height: 30),
+                    LogEntryField(
+                      title: 'Tên tài liệu',
+                      initialText: model.editLogBook!.name!,
+                      fieldHeight: null,
+                      maxLines: 1,
+                    ),
                     TextEntryField(
                       title: 'Ngày tạo',
                       initialText: DateFormat('dd-MMM-yyyy').format(
@@ -1374,18 +1410,21 @@ class _HomeViewState extends MomentumState<HomeView> {
   void initControllers() {
     todoController = TextEditingController();
     workDone = TextEditingController();
+    name = TextEditingController();
     logDate = TextEditingController();
   }
 
   void disposeControllers() {
     todoController.dispose();
     workDone.dispose();
+    name.dispose();
     logDate.dispose();
   }
 
   void clearControllers() {
     todoController.clear();
     workDone.clear();
+    name.clear();
     logDate.clear();
   }
 }

@@ -48,12 +48,11 @@ class Dao {
   }
 
   /// get all logbooks
-  Future<List<LogBook>> getAllLogBooks({bool descendSort: false}) async {
-    final finder = Finder(
-      sortOrders: [
-        SortOrder('date', descendSort),
-      ],
-    );
+  Future<List<LogBook>> getAllLogBooks(
+      {bool descendSort: false, Filter? filter: null}) async {
+    final finder = Finder(sortOrders: [
+      SortOrder('date', descendSort),
+    ], filter: filter);
 
     final logBookSnapshots =
         await _logbookStore.find(await _db, finder: finder);
