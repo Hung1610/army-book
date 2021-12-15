@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import 'package:log_book/utils/index.dart';
+import 'package:army_book/utils/index.dart';
 
 class TextEntryField extends StatelessWidget {
   final String title;

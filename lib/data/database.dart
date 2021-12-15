@@ -7,7 +7,7 @@ import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
-import 'package:log_book/services/index.dart';
+import 'package:army_book/services/index.dart';
 
 class AppDatabase {
   // singleton instance

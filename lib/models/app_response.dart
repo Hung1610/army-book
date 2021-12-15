@@ -1,4 +1,4 @@
-import 'package:log_book/constants.dart';
+import 'package:army_book/constants.dart';
 
 /// general response model for services
 class AppResponse {

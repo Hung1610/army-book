@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:log_book/components/router-params/pdf-printer-view.param.dart';
+import 'package:army_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:flutter/material.dart';
@@ -19,11 +19,11 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import 'package:log_book/components/index.dart';
-import 'package:log_book/constants.dart';
-import 'package:log_book/services/index.dart';
-import 'package:log_book/utils/index.dart';
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/components/index.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/services/index.dart';
+import 'package:army_book/utils/index.dart';
+import 'package:army_book/widgets/index.dart';
 
 class PdfGenView extends StatefulWidget {
   @override

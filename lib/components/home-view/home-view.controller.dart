@@ -1,9 +1,9 @@
 import 'package:momentum/momentum.dart';
 
-import 'package:log_book/components/index.dart';
-import 'package:log_book/constants.dart';
-import 'package:log_book/models/index.dart';
-import 'package:log_book/services/index.dart';
+import 'package:army_book/components/index.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/models/index.dart';
+import 'package:army_book/services/index.dart';
 import 'package:sembast/timestamp.dart';
 
 import 'index.dart';

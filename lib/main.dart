@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
-import 'package:log_book/components/index.dart';
-import 'package:log_book/services/index.dart';
-import 'package:log_book/utils/index.dart';
-import 'package:log_book/views/index.dart';
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/components/index.dart';
+import 'package:army_book/services/index.dart';
+import 'package:army_book/utils/index.dart';
+import 'package:army_book/views/index.dart';
+import 'package:army_book/widgets/index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

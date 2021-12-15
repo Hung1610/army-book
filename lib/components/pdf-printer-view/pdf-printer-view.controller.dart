@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
-import 'package:log_book/components/router-params/pdf-printer-view.param.dart';
-import 'package:log_book/constants.dart';
-import 'package:log_book/models/app_response.dart';
-import 'package:log_book/models/log_book.dart';
+import 'package:army_book/components/router-params/pdf-printer-view.param.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/models/app_response.dart';
+import 'package:army_book/models/log_book.dart';
 import 'package:momentum/momentum.dart';
 
-import 'package:log_book/components/index.dart';
-import 'package:log_book/services/index.dart';
+import 'package:army_book/components/index.dart';
+import 'package:army_book/services/index.dart';
 
 import 'index.dart';
 

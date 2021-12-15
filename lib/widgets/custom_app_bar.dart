@@ -1,10 +1,10 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:log_book/utils/color_themes.dart';
-import 'package:log_book/views/index.dart';
+import 'package:army_book/utils/color_themes.dart';
+import 'package:army_book/views/index.dart';
 
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/widgets/index.dart';
 import 'package:momentum/momentum.dart';
 
 class CustomAppBar extends StatelessWidget {

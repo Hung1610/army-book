@@ -7,15 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
-import 'package:log_book/components/router-params/pdf-printer-view.param.dart';
+import 'package:army_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:momentum/momentum.dart';
 import 'package:overflow_view/overflow_view.dart';
 
-import 'package:log_book/components/index.dart';
-import 'package:log_book/constants.dart';
-import 'package:log_book/services/index.dart';
-import 'package:log_book/utils/index.dart';
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/components/index.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/services/index.dart';
+import 'package:army_book/utils/index.dart';
+import 'package:army_book/widgets/index.dart';
 import 'package:relative_scale/relative_scale.dart';
 
 import 'index.dart';
@@ -201,7 +201,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                           ],
                                         ),
                                         Divider(
-                                          thickness: 2,
+                                          thickness: 3,
                                         ),
                                         // SizedBox(height: sy(40)),
                                         Row(
@@ -232,7 +232,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                         ),
                                         SizedBox(height: 10),
                                         Container(
-                                            height: sy(200),
+                                            height: sy(220),
                                             child: Column(
                                               children: [
                                                 TextField(
@@ -342,7 +342,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 ),
                                               ],
                                             )),
-                                        Row(children: []),
                                         Row(
                                           children: [
                                             Text(
@@ -478,7 +477,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                           constraints:
                                                               BoxConstraints(
                                                             maxHeight: sy(120),
-                                                            minHeight: sy(80),
+                                                            minHeight: sy(70),
                                                           ),
                                                           child: Container(
                                                             padding: EdgeInsets.all(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:log_book/utils/index.dart';
+import 'package:army_book/utils/index.dart';
 
 Widget _getLoaderType(int type) {
   Widget _defaultLoader;

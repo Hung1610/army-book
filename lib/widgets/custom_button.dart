@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import 'package:log_book/utils/index.dart';
+import 'package:army_book/utils/index.dart';
 
 class CustomButton extends StatelessWidget {
   final IconData? icon;

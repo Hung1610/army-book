@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:sembast/sembast.dart';
 
-import 'package:log_book/models/index.dart';
+import 'package:army_book/models/index.dart';
 
 import 'index.dart';
 

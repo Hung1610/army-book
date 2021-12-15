@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:log_book/models/index.dart';
+import 'package:army_book/models/index.dart';
 import 'package:momentum/momentum.dart';
 
 import 'index.dart';

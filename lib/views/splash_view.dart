@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import 'package:log_book/constants.dart';
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/widgets/index.dart';
 
 import 'index.dart';
 

@@ -2,8 +2,8 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
 
-import 'package:log_book/utils/index.dart';
-import 'package:log_book/widgets/index.dart';
+import 'package:army_book/utils/index.dart';
+import 'package:army_book/widgets/index.dart';
 
 /// main service for all app dialogs
 class DialogService extends MomentumService {
@@ -46,7 +46,7 @@ class DialogService extends MomentumService {
             colors: [bgColor, secondaryColor],
           ),
           position: FlashPosition.bottom,
-          enableDrag: true,
+          enableVerticalDrag: true,
           horizontalDismissDirection: HorizontalDismissDirection.startToEnd,
           margin: const EdgeInsets.all(8),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -57,7 +57,7 @@ class DialogService extends MomentumService {
               title,
               style: Theme.of(context).textTheme.headline6,
             ),
-            message: Text(info),
+            content: Text(info),
             /*
             primaryAction: IconButton(
               icon: Icon(Icons.info),
@@ -86,7 +86,7 @@ class DialogService extends MomentumService {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           margin: const EdgeInsets.all(8),
           child: FlashBar(
-            message: Text(
+            content: Text(
               info,
               style: TextStyle(
                 fontSize: 14,
@@ -129,7 +129,7 @@ class DialogService extends MomentumService {
           forwardAnimationCurve: Curves.easeOutBack,
           reverseAnimationCurve: Curves.slowMiddle,
           position: FlashPosition.bottom,
-          enableDrag: true,
+          enableVerticalDrag: true,
           child: FlashBar(
             icon: Icon(
               Icons.info,
@@ -137,7 +137,7 @@ class DialogService extends MomentumService {
             ),
             shouldIconPulse: false,
             showProgressIndicator: true,
-            message: Text(
+            content: Text(
               info,
               style: TextStyle(
                 fontSize: 14,
@@ -180,7 +180,7 @@ class DialogService extends MomentumService {
           forwardAnimationCurve: Curves.easeOutBack,
           reverseAnimationCurve: Curves.slowMiddle,
           position: FlashPosition.bottom,
-          enableDrag: true,
+          enableVerticalDrag: true,
           child: FlashBar(
             icon: Icon(
               Icons.delete,
@@ -188,7 +188,7 @@ class DialogService extends MomentumService {
             ),
             shouldIconPulse: false,
             showProgressIndicator: true,
-            message: Text(
+            content: Text(
               info,
               style: TextStyle(
                 fontSize: 14,
@@ -234,7 +234,7 @@ class DialogService extends MomentumService {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           margin: const EdgeInsets.all(8),
           child: FlashBar(
-            message: Text(
+            content: Text(
               info,
               style: TextStyle(
                 fontSize: 14,
@@ -291,7 +291,7 @@ class DialogService extends MomentumService {
             stops: [0.6, 1],
           ),
           position: showOnTop ? FlashPosition.top : FlashPosition.bottom,
-          enableDrag: true,
+          enableVerticalDrag: true,
           horizontalDismissDirection: HorizontalDismissDirection.startToEnd,
           margin: const EdgeInsets.all(8),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -306,7 +306,7 @@ class DialogService extends MomentumService {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            message: Text(
+            content: Text(
               message!,
               style: TextStyle(
                 fontSize: 14,

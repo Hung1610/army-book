@@ -6,9 +6,9 @@ import 'package:momentum/momentum.dart';
 import 'package:path/path.dart';
 import 'package:path_provider_windows/path_provider_windows.dart';
 
-import 'package:log_book/constants.dart';
-import 'package:log_book/data/index.dart';
-import 'package:log_book/models/index.dart';
+import 'package:army_book/constants.dart';
+import 'package:army_book/data/index.dart';
+import 'package:army_book/models/index.dart';
 import 'package:sembast/sembast.dart';
 
 // service class to perform CRUD operations against sembast db

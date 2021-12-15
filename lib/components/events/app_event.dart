@@ -1,4 +1,4 @@
-import 'package:log_book/constants.dart';
+import 'package:army_book/constants.dart';
 
 class AppEvent {
   final ResponseEventAction? action;
