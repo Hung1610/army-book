@@ -268,7 +268,6 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                             .add(Duration(
                                                                 days: 120)),
                                                       ))!;
-
                                                       model.update(
                                                           entryDate:
                                                               selectedDate);

@@ -191,7 +191,20 @@ class AppService extends MomentumService {
       Filter? filter = Filter.custom((record) => true);
 
       if (name != null)
-        filter = Filter.and([filter, Filter.matches('name', name)]);
+        filter = Filter.and([
+          filter,
+          Filter.matches('name', name),
+        ]);
+      if (from != null)
+        filter = Filter.and([
+          filter,
+          Filter.greaterThanOrEquals('date', from),
+        ]);
+      if (to != null)
+        filter = Filter.and([
+          filter,
+          Filter.lessThanOrEquals('date', to),
+        ]);
 
       final logBks =
           await _dao.getAllLogBooks(descendSort: descendSort, filter: filter);
