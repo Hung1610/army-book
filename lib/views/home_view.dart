@@ -26,16 +26,21 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends MomentumState<HomeView> {
-  final ScrollController scrollController = ScrollController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late HomeViewController viewController;
   late DialogService dialogService;
 
+  // Text Editing Controllers for edit/add
   late TextEditingController todoController;
   late TextEditingController workDone;
   late TextEditingController name;
   late TextEditingController logDate;
+
+  // Text Editing Controllers for filtering
+  late TextEditingController nameSearchController;
+  late TextEditingController fromDateController;
+  late TextEditingController toDateController;
 
   @override
   void initMomentumState() {
@@ -122,6 +127,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                           )
                         // TODO: Use slivers
                         : SingleChildScrollView(
+                            controller: ScrollController(),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: sy(13),
@@ -158,13 +164,17 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                   ),
                                                 ),
                                                 onPressed: () async {
+                                                  model.update(
+                                                      nameSearch:
+                                                          nameSearchController
+                                                              .text);
                                                   await model.controller
-                                                      .loadAll();
+                                                      .filterDocs();
                                                 },
                                                 icon: Icon(
                                                     CupertinoIcons.refresh),
                                                 label: Text(
-                                                  'Refresh',
+                                                  'Filter',
                                                 ),
                                               ),
                                             ),
@@ -232,115 +242,196 @@ class _HomeViewState extends MomentumState<HomeView> {
                                         ),
                                         SizedBox(height: 10),
                                         Container(
-                                            height: sy(220),
                                             child: Column(
-                                              children: [
-                                                TextField(
-                                                  decoration: InputDecoration(
-                                                    suffixIcon: Icon(
-                                                      Icons.search,
-                                                      size: 20.0,
-                                                    ),
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.red,
-                                                          width: 5.0),
-                                                    ),
-                                                    hintText:
-                                                        'Tìm theo tên tài liệu',
-                                                  ),
-                                                ),
-                                                TextEntryField(
-                                                  title: 'Tìm từ ngày',
-                                                  suffixIcon: InkWell(
-                                                    onTap: () async {
-                                                      final DateTime
-                                                          selectedDate =
-                                                          (await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            DateTime.now(),
-                                                        firstDate: DateTime
-                                                                .now()
-                                                            .subtract(Duration(
-                                                                days: 365)),
-                                                        lastDate: DateTime.now()
-                                                            .add(Duration(
-                                                                days: 120)),
-                                                      ))!;
-                                                      model.update(
-                                                          entryDate:
-                                                              selectedDate);
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      padding:
-                                                          EdgeInsets.all(8),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    10)),
+                                          children: [
+                                            Container(
+                                              height: sy(50),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                      child: Column(
+                                                    children: [
+                                                      TextField(
+                                                        controller:
+                                                            nameSearchController,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          suffixIcon: Icon(
+                                                            Icons.search,
+                                                            size: 20.0,
+                                                          ),
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .red,
+                                                                    width: 5.0),
+                                                          ),
+                                                          hintText:
+                                                              'Tìm theo tên tài liệu',
+                                                        ),
                                                       ),
-                                                      child: Center(
-                                                        child: Icon(
-                                                          CupertinoIcons
-                                                              .calendar,
-                                                          size: 20,
+                                                    ],
+                                                  ))
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: sy(100),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                      child: Column(children: [
+                                                    TextEntryField(
+                                                      title: 'Tìm từ ngày',
+                                                      initialText: model
+                                                                  .fromSearchDate !=
+                                                              null
+                                                          ? DateFormat(
+                                                                  'dd-MMM-yyyy')
+                                                              .format(model
+                                                                  .fromSearchDate!)
+                                                          : '',
+                                                      clearCallback: () => {
+                                                        model.update(
+                                                            updateFromDateFilter:
+                                                                true,
+                                                            fromSearchDate:
+                                                                null)
+                                                      },
+                                                      suffixIcon: InkWell(
+                                                        onTap: () async {
+                                                          final DateTime?
+                                                              selectedDate =
+                                                              (await showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                DateTime.now(),
+                                                            firstDate: DateTime
+                                                                    .now()
+                                                                .subtract(
+                                                                    Duration(
+                                                                        days:
+                                                                            365)),
+                                                            lastDate: DateTime
+                                                                    .now()
+                                                                .add(Duration(
+                                                                    days: 120)),
+                                                          ));
+                                                          model.update(
+                                                              fromSearchDate:
+                                                                  selectedDate);
+                                                        },
+                                                        child: Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          padding:
+                                                              EdgeInsets.all(8),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            10)),
+                                                          ),
+                                                          child: Center(
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .calendar,
+                                                              size: 20,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                                TextEntryField(
-                                                  title: 'Đến ngày',
-                                                  suffixIcon: InkWell(
-                                                    onTap: () async {
-                                                      final DateTime
-                                                          selectedDate =
-                                                          (await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            DateTime.now(),
-                                                        firstDate: DateTime
-                                                                .now()
-                                                            .subtract(Duration(
-                                                                days: 365)),
-                                                        lastDate: DateTime.now()
-                                                            .add(Duration(
-                                                                days: 120)),
-                                                      ))!;
-
-                                                      model.update(
-                                                          entryDate:
-                                                              selectedDate);
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      padding:
-                                                          EdgeInsets.all(8),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    10)),
-                                                      ),
-                                                      child: Center(
-                                                        child: Icon(
-                                                          CupertinoIcons
-                                                              .calendar,
-                                                          size: 20,
+                                                  ])),
+                                                  Expanded(
+                                                      child: Column(
+                                                    children: [
+                                                      TextEntryField(
+                                                        title: 'Đến ngày',
+                                                        initialText: model
+                                                                    .toSearchDate !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd-MMM-yyyy')
+                                                                .format(model
+                                                                    .toSearchDate!)
+                                                            : '',
+                                                        clearCallback: () => {
+                                                          model.update(
+                                                              updateToDateFilter:
+                                                                  true,
+                                                              toSearchDate:
+                                                                  null)
+                                                        },
+                                                        suffixIcon: InkWell(
+                                                          onTap: () async {
+                                                            final DateTime?
+                                                                selectedDate =
+                                                                (await showDatePicker(
+                                                              context: context,
+                                                              initialDate:
+                                                                  DateTime
+                                                                      .now(),
+                                                              firstDate: DateTime
+                                                                      .now()
+                                                                  .subtract(
+                                                                      Duration(
+                                                                          days:
+                                                                              365)),
+                                                              lastDate: DateTime
+                                                                      .now()
+                                                                  .add(Duration(
+                                                                      days:
+                                                                          120)),
+                                                            ));
+                                                            model.update(
+                                                                toSearchDate:
+                                                                    selectedDate);
+                                                          },
+                                                          child: Container(
+                                                            height: 40,
+                                                            width: 40,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                            ),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                CupertinoIcons
+                                                                    .calendar,
+                                                                size: 20,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
+                                                    ],
+                                                  )),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )),
                                         Row(
                                           children: [
                                             Text(
@@ -463,6 +554,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                               )
                                             : model.viewMode == ViewMode.List
                                                 ? ListView.separated(
+                                                    controller:
+                                                        ScrollController(),
                                                     physics:
                                                         NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
@@ -510,61 +603,68 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                 Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .end,
+                                                                          .spaceBetween,
                                                                   children: [
-                                                                    CustomButton(
-                                                                        icon: CupertinoIcons
-                                                                            .eye,
-                                                                        tooltip:
-                                                                            'view more details',
-                                                                        onPressed:
-                                                                            () {
-                                                                          model
-                                                                              .update(
-                                                                            sideBarSignal:
-                                                                                SideBarSignal.ViewLogBook,
-                                                                            editLogBook:
-                                                                                _logEntry,
-                                                                          );
-                                                                        }),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            15),
-                                                                    CustomButton(
-                                                                      icon: CupertinoIcons
-                                                                          .pencil,
-                                                                      tooltip:
-                                                                          'edit and update entry',
-                                                                      onPressed:
-                                                                          () {
-                                                                        name.text =
-                                                                            _logEntry.name!;
-                                                                        workDone.text =
-                                                                            _logEntry.workdone!;
-
-                                                                        model
-                                                                            .update(
-                                                                          sideBarSignal:
-                                                                              SideBarSignal.EditLogBook,
-                                                                          editLogBook:
-                                                                              _logEntry,
-                                                                        );
-                                                                      },
+                                                                    Column(
+                                                                      children: [
+                                                                        AutoSizeText(
+                                                                          _logEntry
+                                                                              .name!,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          minFontSize:
+                                                                              20,
+                                                                          maxFontSize:
+                                                                              30,
+                                                                          style:
+                                                                              kStyle(
+                                                                            size:
+                                                                                20,
+                                                                          ),
+                                                                          maxLines:
+                                                                              4,
+                                                                          softWrap:
+                                                                              true,
+                                                                          // overflowReplacement:Text('...'),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            15),
-                                                                    CustomButton(
-                                                                      icon: CupertinoIcons
-                                                                          .delete,
-                                                                      tooltip:
-                                                                          'delete logbook entry',
-                                                                      onPressed:
-                                                                          () {
-                                                                        model
-                                                                            .controller
-                                                                            .sendLogDeleteSignal(index);
-                                                                      },
+                                                                    Column(
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            CustomButton(
+                                                                                icon: CupertinoIcons.eye,
+                                                                                tooltip: 'view more details',
+                                                                                onPressed: () {
+                                                                                  model.update(
+                                                                                    sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                    editLogBook: _logEntry,
+                                                                                  );
+                                                                                }),
+                                                                            CustomButton(
+                                                                              icon: CupertinoIcons.pencil,
+                                                                              tooltip: 'edit and update entry',
+                                                                              onPressed: () {
+                                                                                name.text = _logEntry.name!;
+                                                                                workDone.text = _logEntry.workdone!;
+
+                                                                                model.update(
+                                                                                  sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                  editLogBook: _logEntry,
+                                                                                );
+                                                                              },
+                                                                            ),
+                                                                            CustomButton(
+                                                                              icon: CupertinoIcons.delete,
+                                                                              tooltip: 'delete logbook entry',
+                                                                              onPressed: () {
+                                                                                model.controller.sendLogDeleteSignal(index);
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ],
                                                                 ),
@@ -645,6 +745,8 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                   )
                                                 : StaggeredGridView
                                                     .countBuilder(
+                                                    controller:
+                                                        ScrollController(),
                                                     physics:
                                                         NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
@@ -1410,6 +1512,10 @@ class _HomeViewState extends MomentumState<HomeView> {
     workDone = TextEditingController();
     name = TextEditingController();
     logDate = TextEditingController();
+
+    nameSearchController = TextEditingController();
+    fromDateController = TextEditingController();
+    toDateController = TextEditingController();
   }
 
   void disposeControllers() {
@@ -1417,6 +1523,10 @@ class _HomeViewState extends MomentumState<HomeView> {
     workDone.dispose();
     name.dispose();
     logDate.dispose();
+
+    nameSearchController.dispose();
+    fromDateController.dispose();
+    toDateController.dispose();
   }
 
   void clearControllers() {
@@ -1424,5 +1534,9 @@ class _HomeViewState extends MomentumState<HomeView> {
     workDone.clear();
     name.clear();
     logDate.clear();
+
+    nameSearchController.clear();
+    fromDateController.clear();
+    toDateController.clear();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -10,6 +11,8 @@ class TextEntryField extends StatelessWidget {
   final double fieldHeight;
   final int? maxLines;
   final Widget suffixIcon;
+  final Widget? clearIcon;
+  final VoidCallback? clearCallback;
 
   const TextEntryField({
     Key? key,
@@ -18,6 +21,8 @@ class TextEntryField extends StatelessWidget {
     this.fieldHeight: 50,
     this.maxLines,
     this.suffixIcon: const SizedBox.shrink(),
+    this.clearIcon: const SizedBox.shrink(),
+    this.clearCallback,
   }) : super(key: key);
 
   @override
@@ -62,6 +67,29 @@ class TextEntryField extends StatelessWidget {
                         ],
                       ),
                       Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 3),
+                        child: initialText!.isNotEmpty
+                            ? InkWell(
+                                onTap: clearCallback,
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      CupertinoIcons.clear,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(right: 3),
                         child: suffixIcon,

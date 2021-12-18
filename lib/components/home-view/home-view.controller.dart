@@ -24,14 +24,18 @@ class HomeViewController extends MomentumController<HomeViewModel> {
   }
 
   Future<void> bootstrapAsync() async {
-    await loadAll();
+    model.update(sideBarSignal: SideBarSignal.None);
+    // await loadTodos();
+    await loadLogBooks();
   }
 
-  Future<void> loadAll() async {
-    reset();
+  Future<void> filterDocs() async {
     model.update(sideBarSignal: SideBarSignal.None);
-    await loadTodos();
-    await loadLogBooks();
+    // await loadTodos();
+    await loadLogBooks(
+        name: model.nameSearch,
+        from: model.fromSearchDate,
+        to: model.toSearchDate);
   }
 
   /// load all todos
@@ -73,23 +77,24 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
   /// load all logbooks
   /// TODO: Use streams
-  Future<void> loadLogBooks() async {
+  Future<void> loadLogBooks(
+      {String? name: null, DateTime? from: null, DateTime? to: null}) async {
     // service DI
     final _service = service<AppService>();
 
     model.update(loading: true);
 
-    final response = await _service.getLogBooks();
+    final response = await _service.getLogBooks(name: name, from: from, to: to);
 
     switch (response.action) {
       case ResponseAction.Success:
         // update model
         List<LogBook> logbooks = response.data;
-        var _logbooks = List<LogBook>.from(model.logBooks!);
+        // var _logbooks = List<LogBook>.from(model.logBooks!);
 
-        _logbooks.addAll(logbooks);
+        // _logbooks.addAll(logbooks);
 
-        model.update(logBooks: _logbooks);
+        model.update(logBooks: logbooks);
 
         break;
 

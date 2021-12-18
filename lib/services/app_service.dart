@@ -10,6 +10,7 @@ import 'package:army_book/constants.dart';
 import 'package:army_book/data/index.dart';
 import 'package:army_book/models/index.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 
 // service class to perform CRUD operations against sembast db
 // @DonnC
@@ -190,22 +191,25 @@ class AppService extends MomentumService {
     try {
       Filter? filter = Filter.custom((record) => true);
 
-      if (name != null)
+      if (name!.isNotEmpty)
         filter = Filter.and([
           filter,
           Filter.matches('name', name),
         ]);
-      if (from != null)
+      if (from != null) {
+        var fromTimestamp = Timestamp.fromDateTime(from);
         filter = Filter.and([
           filter,
-          Filter.greaterThanOrEquals('date', from),
+          Filter.greaterThanOrEquals('date', fromTimestamp),
         ]);
-      if (to != null)
+      }
+      if (to != null) {
+        var toTimestamp = Timestamp.fromDateTime(to);
         filter = Filter.and([
           filter,
-          Filter.lessThanOrEquals('date', to),
+          Filter.lessThanOrEquals('date', toTimestamp),
         ]);
-
+      }
       final logBks =
           await _dao.getAllLogBooks(descendSort: descendSort, filter: filter);
 
