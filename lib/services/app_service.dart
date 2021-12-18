@@ -191,7 +191,7 @@ class AppService extends MomentumService {
     try {
       Filter? filter = Filter.custom((record) => true);
 
-      if (name!.isNotEmpty)
+      if (name != null && name.isNotEmpty)
         filter = Filter.and([
           filter,
           Filter.matches('name', name),

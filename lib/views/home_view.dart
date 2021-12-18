@@ -704,12 +704,12 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                             overflow:
                                                                                 TextOverflow.ellipsis,
                                                                             minFontSize:
-                                                                                13,
+                                                                                14,
                                                                             maxFontSize:
-                                                                                13,
+                                                                                14,
                                                                             style:
                                                                                 kStyle(
-                                                                              size: 13,
+                                                                              size: 14,
                                                                             ),
                                                                             maxLines:
                                                                                 4,
