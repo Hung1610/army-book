@@ -18,6 +18,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
       sideBarLoading: false,
       todos: [],
       logBooks: [],
+      selectedFile: null,
       entryDate: DateTime.now(),
       viewMode: ViewMode.List,
     );

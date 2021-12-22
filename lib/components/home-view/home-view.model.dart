@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:momentum/momentum.dart';
 
 import 'package:army_book/constants.dart';
@@ -14,6 +16,7 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
     this.sideBarLoading,
     this.sideBarSignal,
     this.entryDate,
+    this.selectedFile,
     this.nameSearch,
     this.fromSearchDate,
     this.toSearchDate,
@@ -26,6 +29,7 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
   final List<LogBook>? logBooks;
   final bool? loading;
   final DateTime? entryDate;
+  final File? selectedFile;
   final String? nameSearch;
   final DateTime? fromSearchDate;
   final DateTime? toSearchDate;
@@ -40,6 +44,7 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
     List<LogBook>? logBooks,
     bool? loading,
     DateTime? entryDate,
+    File? selectedFile,
     String? nameSearch,
     DateTime? fromSearchDate,
     DateTime? toSearchDate,
@@ -53,6 +58,7 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
       controller,
       viewMode: viewMode ?? this.viewMode,
       entryDate: entryDate ?? this.entryDate,
+      selectedFile: selectedFile ?? this.selectedFile,
       nameSearch: nameSearch ?? this.nameSearch,
       fromSearchDate: updateFromDateFilter
           ? fromSearchDate

@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:army_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:momentum/momentum.dart';
@@ -17,6 +18,8 @@ import 'package:army_book/services/index.dart';
 import 'package:army_book/utils/index.dart';
 import 'package:army_book/widgets/index.dart';
 import 'package:relative_scale/relative_scale.dart';
+
+import 'package:path/path.dart' as path;
 
 import 'index.dart';
 
@@ -666,6 +669,7 @@ class _HomeViewState extends MomentumState<HomeView> {
 
                                                                                       model.update(
                                                                                         sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                        selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
                                                                                         editLogBook: _logEntry,
                                                                                       );
                                                                                     },
@@ -1165,19 +1169,27 @@ class _HomeViewState extends MomentumState<HomeView> {
                         primary: Colors.blueGrey,
                       ),
                       onPressed: () async {
-                        FilePickerResult? result =
-                            await FilePicker.platform.pickFiles();
+                        FilePickerResult? result = await FilePicker.platform
+                            .pickFiles(
+                                allowedExtensions: ['xlxs', 'doc', 'docx']);
 
                         if (result != null) {
                           String filePath = result.files.single.path.toString();
                           File file = File(filePath);
+                          model.update(selectedFile: file);
                         } else {
                           // User canceled the picker
                         }
                       },
-                      icon: Icon(Icons.file_upload),
+                      icon: Icon(model.selectedFile == null ||
+                              model.selectedFile!.path.isEmpty
+                          ? Icons.file_upload
+                          : FontAwesomeIcons.solidFileWord),
                       label: Text(
-                        'Chèn file',
+                        model.selectedFile == null ||
+                                model.selectedFile!.path.isEmpty
+                            ? 'Chèn file'
+                            : path.basename(model.selectedFile!.path),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -1330,12 +1342,28 @@ class _HomeViewState extends MomentumState<HomeView> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blueGrey,
                       ),
-                      onPressed: () {
-                        MomentumRouter.goto(context, PdfGenView);
+                      onPressed: () async {
+                        FilePickerResult? result = await FilePicker.platform
+                            .pickFiles(
+                                allowedExtensions: ['xlxs', 'doc', 'docx']);
+
+                        if (result != null) {
+                          String filePath = result.files.single.path.toString();
+                          File file = File(filePath);
+                          model.update(selectedFile: file);
+                        } else {
+                          // User canceled the picker
+                        }
                       },
-                      icon: Icon(Icons.file_upload),
+                      icon: Icon(model.selectedFile == null ||
+                              model.selectedFile!.path.isEmpty
+                          ? Icons.file_upload
+                          : FontAwesomeIcons.solidFileWord),
                       label: Text(
-                        'Chèn file',
+                        model.selectedFile == null ||
+                                model.selectedFile!.path.isEmpty
+                            ? 'Chèn file'
+                            : path.basename(model.selectedFile!.path),
                       ),
                     ),
                     SizedBox(height: 30),
