@@ -14,6 +14,3 @@ a documents-organizing desktop app
 - [Bitsdojo Window](https://pub.dev/packages/bitsdojo_window) (Window Customization)
 
 ## Made with Flutter 💙
-
-### Ico ref
-ico generated from [crello](https://crello.com/home/)
