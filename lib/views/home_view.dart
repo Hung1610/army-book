@@ -160,7 +160,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                     nameSearchController.text);
                                             await model.controller.filterDocs();
                                           },
-                                          icon: Icon(CupertinoIcons.refresh),
+                                          icon: Icon(Icons.filter_alt),
                                           label: Text(
                                             'Filter',
                                           ),
