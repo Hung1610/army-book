@@ -469,7 +469,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                             // TODO: Add shimmer loader
                                             child: customLoader(
                                               heightFromTop: sy(20),
-                                              loaderType: 1,
+                                              loaderType: 2,
                                               loaderText: 'loading..',
                                             ),
                                           )
