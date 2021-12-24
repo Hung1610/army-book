@@ -42,12 +42,14 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Expanded(
+                child: Container(
+              color: mainColor,
               child: CollapsibleSidebar(
-                backgroundColor: Colors.white.withOpacity(0.9),
+                backgroundColor: Colors.transparent,
                 unselectedTextColor: Colors.blueGrey,
                 unselectedIconColor: Colors.red.shade900,
                 selectedIconColor: Colors.red.shade400,
-                borderRadius: 5,
+                borderRadius: 4,
                 items: [
                   CollapsibleItem(
                     text: 'Văn bản',
@@ -68,9 +70,9 @@ class CustomAppBar extends StatelessWidget {
                 ],
                 sidebarBoxShadow: [
                   BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 5,
-                    spreadRadius: 0.1,
+                    color: Colors.white,
+                    blurRadius: 100,
+                    spreadRadius: 1,
                   ),
                 ],
                 titleBack: true,
@@ -84,7 +86,7 @@ class CustomAppBar extends StatelessWidget {
                 title: 'ArmyBook',
                 body: child,
               ),
-            ),
+            )),
           ],
         ),
       ),

@@ -18,11 +18,11 @@ const bgColor = Colors.white;
 final textColor = Colors.black.withOpacity(0.6);
 
 final whiteColor = Colors.white.withOpacity(0.9);
-const mainColor = Colors.grey;
+final mainColor = Colors.white;
 
 const defaultPadding = 16.0;
 
-const borderColor = mainColor;
+final borderColor = mainColor;
 
 final buttonColors = WindowButtonColors(
   iconNormal: priColor,
