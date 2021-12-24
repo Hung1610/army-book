@@ -25,7 +25,13 @@ class HomeViewController extends MomentumController<HomeViewModel> {
   }
 
   Future<void> bootstrapAsync() async {
-    model.update(sideBarSignal: SideBarSignal.None);
+    model.update(
+        nameSearch: '',
+        toSearchDate: null,
+        fromSearchDate: null,
+        updateToDateFilter: true,
+        updateFromDateFilter: true,
+        sideBarSignal: SideBarSignal.None);
     // await loadTodos();
     await loadLogBooks();
   }
@@ -84,6 +90,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
     final _service = service<AppService>();
 
     model.update(loading: true);
+    await Future.delayed(Duration(seconds: 1));
 
     final response = await _service.getLogBooks(name: name, from: from, to: to);
 
