@@ -36,9 +36,15 @@ class TextEntryField extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              AutoSizeText(
                 title,
+                // overflow: TextOverflow.ellipsis,
+                minFontSize: 15,
+                maxFontSize: 35,
                 style: kStyle(),
+                maxLines: 1,
+                softWrap: true,
+                // overflowReplacement:Text('...'),
               ),
               Padding(
                 padding: const EdgeInsets.all(12),

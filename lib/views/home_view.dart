@@ -162,7 +162,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                           },
                                           icon: Icon(Icons.filter_alt),
                                           label: Text(
-                                            'Filter',
+                                            'Lọc',
                                           ),
                                         ),
                                       ),
@@ -274,125 +274,177 @@ class _HomeViewState extends MomentumState<HomeView> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Expanded(
-                                                child: Column(children: [
-                                              TextEntryField(
-                                                title: 'Tìm từ ngày',
-                                                initialText: model
-                                                            .fromSearchDate !=
-                                                        null
-                                                    ? DateFormat('dd-MMM-yyyy')
-                                                        .format(model
-                                                            .fromSearchDate!)
-                                                    : '',
-                                                clearCallback: () => {
-                                                  model.update(
-                                                      updateFromDateFilter:
-                                                          true,
-                                                      fromSearchDate: null)
-                                                },
-                                                suffixIcon: InkWell(
-                                                  onTap: () async {
-                                                    final DateTime?
-                                                        selectedDate =
-                                                        (await showDatePicker(
-                                                      context: context,
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime.now()
-                                                          .subtract(Duration(
-                                                              days: 365)),
-                                                      lastDate: DateTime.now()
-                                                          .add(Duration(
-                                                              days: 120)),
-                                                    ));
-                                                    model.update(
-                                                        fromSearchDate:
-                                                            selectedDate);
-                                                  },
-                                                  child: Container(
-                                                    height: 40,
-                                                    width: 40,
-                                                    padding: EdgeInsets.all(8),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  10)),
-                                                    ),
-                                                    child: Center(
-                                                      child: Icon(
-                                                        CupertinoIcons.calendar,
-                                                        size: 20,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ])),
-                                            Expanded(
+                                                flex: 6,
                                                 child: Column(
-                                              children: [
-                                                TextEntryField(
-                                                  title: 'Đến ngày',
-                                                  initialText: model
-                                                              .toSearchDate !=
-                                                          null
-                                                      ? DateFormat(
-                                                              'dd-MMM-yyyy')
-                                                          .format(model
-                                                              .toSearchDate!)
-                                                      : '',
-                                                  clearCallback: () => {
-                                                    model.update(
-                                                        updateToDateFilter:
-                                                            true,
-                                                        toSearchDate: null)
-                                                  },
-                                                  suffixIcon: InkWell(
-                                                    onTap: () async {
-                                                      final DateTime?
-                                                          selectedDate =
-                                                          (await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            DateTime.now(),
-                                                        firstDate: DateTime
-                                                                .now()
-                                                            .subtract(Duration(
-                                                                days: 365)),
-                                                        lastDate: DateTime.now()
-                                                            .add(Duration(
-                                                                days: 120)),
-                                                      ));
-                                                      model.update(
-                                                          toSearchDate:
-                                                              selectedDate);
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      padding:
-                                                          EdgeInsets.all(8),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    10)),
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      TextEntryField(
+                                                        title:
+                                                            'Tìm theo ngày tạo:',
+                                                        initialText: model
+                                                                    .fromSearchDate !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd-MMM-yyyy')
+                                                                .format(model
+                                                                    .fromSearchDate!)
+                                                            : '',
+                                                        clearCallback: () => {
+                                                          model.update(
+                                                              updateFromDateFilter:
+                                                                  true,
+                                                              fromSearchDate:
+                                                                  null)
+                                                        },
+                                                        suffixIcon: InkWell(
+                                                          onTap: () async {
+                                                            final DateTime?
+                                                                selectedDate =
+                                                                (await showDatePicker(
+                                                              context: context,
+                                                              initialDate:
+                                                                  DateTime
+                                                                      .now(),
+                                                              firstDate: DateTime
+                                                                      .now()
+                                                                  .subtract(
+                                                                      Duration(
+                                                                          days:
+                                                                              365)),
+                                                              lastDate: DateTime
+                                                                      .now()
+                                                                  .add(Duration(
+                                                                      days:
+                                                                          120)),
+                                                            ));
+                                                            model.update(
+                                                                fromSearchDate:
+                                                                    selectedDate);
+                                                          },
+                                                          child: Container(
+                                                            height: 40,
+                                                            width: 40,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                            ),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                CupertinoIcons
+                                                                    .calendar,
+                                                                size: 20,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                      child: Center(
-                                                        child: Icon(
-                                                          CupertinoIcons
-                                                              .calendar,
-                                                          size: 20,
+                                                    ])),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      AutoSizeText(
+                                                        'đến',
+                                                        // overflow: TextOverflow.ellipsis,
+                                                        minFontSize: 15,
+                                                        maxFontSize: 35,
+                                                        style: kStyle(),
+                                                        maxLines: 1,
+                                                        softWrap: true,
+                                                        // overflowReplacement:Text('...'),
+                                                      ),
+                                                    ])),
+                                            Expanded(
+                                                flex: 6,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    TextEntryField(
+                                                      title: '',
+                                                      initialText: model
+                                                                  .toSearchDate !=
+                                                              null
+                                                          ? DateFormat(
+                                                                  'dd-MMM-yyyy')
+                                                              .format(model
+                                                                  .toSearchDate!)
+                                                          : '',
+                                                      clearCallback: () => {
+                                                        model.update(
+                                                            updateToDateFilter:
+                                                                true,
+                                                            toSearchDate: null)
+                                                      },
+                                                      suffixIcon: InkWell(
+                                                        onTap: () async {
+                                                          final DateTime?
+                                                              selectedDate =
+                                                              (await showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                DateTime.now(),
+                                                            firstDate: DateTime
+                                                                    .now()
+                                                                .subtract(
+                                                                    Duration(
+                                                                        days:
+                                                                            365)),
+                                                            lastDate: DateTime
+                                                                    .now()
+                                                                .add(Duration(
+                                                                    days: 120)),
+                                                          ));
+                                                          model.update(
+                                                              toSearchDate:
+                                                                  selectedDate);
+                                                        },
+                                                        child: Container(
+                                                          height: 40,
+                                                          width: 40,
+                                                          padding:
+                                                              EdgeInsets.all(8),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            10)),
+                                                          ),
+                                                          child: Center(
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .calendar,
+                                                              size: 20,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
+                                                  ],
+                                                )),
                                           ],
                                         ),
                                       ),
@@ -577,122 +629,116 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           padding:
                                                                               EdgeInsets.all(2),
                                                                           child:
-                                                                              Container(
-                                                                            padding:
-                                                                                EdgeInsets.all(defaultPadding),
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: secondaryColor,
-                                                                              borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                                                              // boxShadow: [
-                                                                              //   BoxShadow(
-                                                                              //     color: Colors.black.withOpacity(0.5),
-                                                                              //     spreadRadius: 1,
-                                                                              //     blurRadius: 2,
-                                                                              //     offset: Offset(1, 3), // changes position of shadow
-                                                                              //   ),
-                                                                              // ],
-                                                                            ),
+                                                                              Material(
+                                                                            elevation:
+                                                                                2,
+                                                                            borderRadius:
+                                                                                BorderRadius.all(Radius.circular(5.0)),
+                                                                            color:
+                                                                                secondaryColor,
                                                                             child:
-                                                                                Column(
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                  children: [
-                                                                                    Column(
-                                                                                      children: [
-                                                                                        AutoSizeText(
-                                                                                          _logEntry.name!,
-                                                                                          overflow: TextOverflow.ellipsis,
-                                                                                          minFontSize: 16,
-                                                                                          maxFontSize: 20,
-                                                                                          style: kStyle(
-                                                                                            size: 16,
+                                                                                Container(
+                                                                              padding: EdgeInsets.all(defaultPadding),
+                                                                              child: Column(
+                                                                                children: [
+                                                                                  Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Column(
+                                                                                        children: [
+                                                                                          AutoSizeText(
+                                                                                            _logEntry.name!,
+                                                                                            overflow: TextOverflow.ellipsis,
+                                                                                            minFontSize: 16,
+                                                                                            maxFontSize: 20,
+                                                                                            style: kStyle(
+                                                                                              size: 16,
+                                                                                            ),
+                                                                                            maxLines: 4,
+                                                                                            softWrap: true,
+                                                                                            // overflowReplacement:Text('...'),
                                                                                           ),
-                                                                                          maxLines: 4,
-                                                                                          softWrap: true,
-                                                                                          // overflowReplacement:Text('...'),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                    Column(
-                                                                                      children: [
-                                                                                        Row(
-                                                                                          children: [
-                                                                                            CustomButton(
-                                                                                                icon: CupertinoIcons.eye,
-                                                                                                tooltip: 'view more details',
+                                                                                        ],
+                                                                                      ),
+                                                                                      Column(
+                                                                                        children: [
+                                                                                          Row(
+                                                                                            children: [
+                                                                                              CustomButton(
+                                                                                                  icon: CupertinoIcons.eye,
+                                                                                                  tooltip: 'view more details',
+                                                                                                  onPressed: () {
+                                                                                                    model.update(
+                                                                                                      sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                      editLogBook: _logEntry,
+                                                                                                    );
+                                                                                                  }),
+                                                                                              CustomButton(
+                                                                                                icon: CupertinoIcons.pencil,
+                                                                                                tooltip: 'edit and update entry',
                                                                                                 onPressed: () {
+                                                                                                  name.text = _logEntry.name!;
+                                                                                                  workDone.text = _logEntry.workdone!;
+
                                                                                                   model.update(
-                                                                                                    sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                    sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                                    selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
                                                                                                     editLogBook: _logEntry,
                                                                                                   );
-                                                                                                }),
-                                                                                            CustomButton(
-                                                                                              icon: CupertinoIcons.pencil,
-                                                                                              tooltip: 'edit and update entry',
-                                                                                              onPressed: () {
-                                                                                                name.text = _logEntry.name!;
-                                                                                                workDone.text = _logEntry.workdone!;
-
-                                                                                                model.update(
-                                                                                                  sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                                  selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
-                                                                                                  editLogBook: _logEntry,
-                                                                                                );
-                                                                                              },
-                                                                                            ),
-                                                                                            CustomButton(
-                                                                                              icon: CupertinoIcons.delete,
-                                                                                              tooltip: 'delete logbook entry',
-                                                                                              onPressed: () {
-                                                                                                model.controller.sendLogDeleteSignal(index);
-                                                                                              },
-                                                                                            ),
-                                                                                          ],
+                                                                                                },
+                                                                                              ),
+                                                                                              CustomButton(
+                                                                                                icon: CupertinoIcons.delete,
+                                                                                                tooltip: 'delete logbook entry',
+                                                                                                onPressed: () {
+                                                                                                  model.controller.sendLogDeleteSignal(index);
+                                                                                                },
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  Row(
+                                                                                    children: [
+                                                                                      CircleAvatar(
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        radius: sy(30),
+                                                                                        child: Icon(
+                                                                                          CupertinoIcons.book_circle_fill,
+                                                                                          color: textColor,
+                                                                                          size: sy(30),
                                                                                         ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                                Row(
-                                                                                  children: [
-                                                                                    CircleAvatar(
-                                                                                      backgroundColor: Colors.transparent,
-                                                                                      radius: sy(30),
-                                                                                      child: Icon(
-                                                                                        CupertinoIcons.book_circle_fill,
-                                                                                        color: textColor,
-                                                                                        size: sy(30),
                                                                                       ),
-                                                                                    ),
-                                                                                    SizedBox(width: sy(8)),
-                                                                                    AutoSizeText(
-                                                                                      _logEntry.workdone!,
-                                                                                      overflow: TextOverflow.ellipsis,
-                                                                                      minFontSize: 14,
-                                                                                      maxFontSize: 14,
-                                                                                      style: kStyle(
-                                                                                        size: 14,
+                                                                                      SizedBox(width: sy(8)),
+                                                                                      AutoSizeText(
+                                                                                        _logEntry.workdone!,
+                                                                                        overflow: TextOverflow.ellipsis,
+                                                                                        minFontSize: 14,
+                                                                                        maxFontSize: 14,
+                                                                                        style: kStyle(
+                                                                                          size: 14,
+                                                                                        ),
+                                                                                        maxLines: 4,
+                                                                                        softWrap: true,
+                                                                                        // overflowReplacement:Text('...'),
                                                                                       ),
-                                                                                      maxLines: 4,
-                                                                                      softWrap: true,
-                                                                                      // overflowReplacement:Text('...'),
-                                                                                    ),
-                                                                                    Spacer(),
-                                                                                    Text(
-                                                                                      DateFormat('dd-MMM-yyyy').format(
-                                                                                        _logEntry.date!.toDateTime(),
+                                                                                      Spacer(),
+                                                                                      Text(
+                                                                                        DateFormat('dd-MMM-yyyy').format(
+                                                                                          _logEntry.date!.toDateTime(),
+                                                                                        ),
+                                                                                        style: kStyle(
+                                                                                          size: 11,
+                                                                                          color: textColor,
+                                                                                          italize: true,
+                                                                                        ),
                                                                                       ),
-                                                                                      style: kStyle(
-                                                                                        size: 11,
-                                                                                        color: textColor,
-                                                                                        italize: true,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
@@ -734,112 +780,106 @@ class _HomeViewState extends MomentumState<HomeView> {
 
                                                                     return ZoomIn(
                                                                       child:
-                                                                          Container(
-                                                                        // height: sy(120),
-                                                                        // width: sy(180),
-                                                                        padding:
-                                                                            EdgeInsets.all(defaultPadding),
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              secondaryColor,
-                                                                          borderRadius:
-                                                                              const BorderRadius.all(Radius.circular(10)),
-                                                                          boxShadow: [
-                                                                            BoxShadow(
-                                                                              color: Colors.black.withOpacity(0.5),
-                                                                              spreadRadius: 1,
-                                                                              blurRadius: 2,
-                                                                              offset: Offset(1, 3), // changes position of shadow
-                                                                            ),
-                                                                          ],
-                                                                        ),
+                                                                          Material(
+                                                                        elevation:
+                                                                            2,
+                                                                        borderRadius:
+                                                                            BorderRadius.all(Radius.circular(5.0)),
+                                                                        color:
+                                                                            secondaryColor,
                                                                         child:
-                                                                            Row(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 5,
-                                                                              child: Column(
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  Expanded(
-                                                                                    child: AutoSizeText(
-                                                                                      _logEntry.workdone!,
-                                                                                      // overflow: TextOverflow.ellipsis,
-                                                                                      minFontSize: 15,
-                                                                                      maxFontSize: 15,
-                                                                                      style: kStyle(
-                                                                                        size: 15,
+                                                                            Container(
+                                                                          // height: sy(120),
+                                                                          // width: sy(180),
+                                                                          padding:
+                                                                              EdgeInsets.all(defaultPadding),
+                                                                          child:
+                                                                              Row(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Expanded(
+                                                                                flex: 5,
+                                                                                child: Column(
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      child: AutoSizeText(
+                                                                                        _logEntry.name!,
+                                                                                        // overflow: TextOverflow.ellipsis,
+                                                                                        minFontSize: 15,
+                                                                                        maxFontSize: 15,
+                                                                                        style: kStyle(
+                                                                                          size: 15,
+                                                                                        ),
+                                                                                        maxLines: 8,
+                                                                                        softWrap: true,
+                                                                                        // overflowReplacement:Text('...'),
                                                                                       ),
-                                                                                      maxLines: 8,
-                                                                                      softWrap: true,
-                                                                                      // overflowReplacement:Text('...'),
                                                                                     ),
-                                                                                  ),
-                                                                                  Spacer(),
-                                                                                  Text(
-                                                                                    DateFormat('dd-MMM-yyyy').format(
-                                                                                      _logEntry.date!.toDateTime(),
+                                                                                    Spacer(),
+                                                                                    Text(
+                                                                                      DateFormat('dd-MMM-yyyy').format(
+                                                                                        _logEntry.date!.toDateTime(),
+                                                                                      ),
+                                                                                      style: kStyle(
+                                                                                        size: 13,
+                                                                                        color: textColor,
+                                                                                        italize: true,
+                                                                                      ),
                                                                                     ),
-                                                                                    style: kStyle(
-                                                                                      size: 13,
-                                                                                      color: textColor,
-                                                                                      italize: true,
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
+                                                                                  ],
+                                                                                ),
                                                                               ),
-                                                                            ),
-                                                                            SizedBox(width: 15),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: OverflowView(
-                                                                                direction: Axis.vertical,
-                                                                                spacing: 4,
-                                                                                children: [
-                                                                                  CustomButton(
-                                                                                      icon: CupertinoIcons.eye,
-                                                                                      tooltip: 'view more details',
+                                                                              SizedBox(width: 15),
+                                                                              Expanded(
+                                                                                flex: 1,
+                                                                                child: OverflowView(
+                                                                                  direction: Axis.vertical,
+                                                                                  spacing: 4,
+                                                                                  children: [
+                                                                                    CustomButton(
+                                                                                        icon: CupertinoIcons.eye,
+                                                                                        tooltip: 'view more details',
+                                                                                        onPressed: () {
+                                                                                          model.update(
+                                                                                            sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                            editLogBook: _logEntry,
+                                                                                          );
+                                                                                        }),
+                                                                                    CustomButton(
+                                                                                      icon: CupertinoIcons.pencil,
+                                                                                      tooltip: 'edit and update entry',
                                                                                       onPressed: () {
                                                                                         model.update(
-                                                                                          sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                          sideBarSignal: SideBarSignal.EditLogBook,
                                                                                           editLogBook: _logEntry,
                                                                                         );
-                                                                                      }),
-                                                                                  CustomButton(
-                                                                                    icon: CupertinoIcons.pencil,
-                                                                                    tooltip: 'edit and update entry',
-                                                                                    onPressed: () {
-                                                                                      model.update(
-                                                                                        sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                        editLogBook: _logEntry,
-                                                                                      );
-                                                                                    },
-                                                                                  ),
-                                                                                  CustomButton(
-                                                                                    icon: CupertinoIcons.delete,
-                                                                                    tooltip: 'delete logbook entry',
-                                                                                    onPressed: () {
-                                                                                      model.controller.sendLogDeleteSignal(index);
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                                builder: (context, remaining) {
-                                                                                  return CircleAvatar(
-                                                                                    child: Text('+$remaining',
-                                                                                        style: kStyle(
-                                                                                          size: 12,
-                                                                                        )),
-                                                                                    backgroundColor: Colors.red,
-                                                                                    maxRadius: 8,
-                                                                                    minRadius: 8,
-                                                                                  );
-                                                                                },
+                                                                                      },
+                                                                                    ),
+                                                                                    CustomButton(
+                                                                                      icon: CupertinoIcons.delete,
+                                                                                      tooltip: 'delete logbook entry',
+                                                                                      onPressed: () {
+                                                                                        model.controller.sendLogDeleteSignal(index);
+                                                                                      },
+                                                                                    ),
+                                                                                  ],
+                                                                                  builder: (context, remaining) {
+                                                                                    return CircleAvatar(
+                                                                                      child: Text('+$remaining',
+                                                                                          style: kStyle(
+                                                                                            size: 12,
+                                                                                          )),
+                                                                                      backgroundColor: Colors.red,
+                                                                                      maxRadius: 8,
+                                                                                      minRadius: 8,
+                                                                                    );
+                                                                                  },
+                                                                                ),
                                                                               ),
-                                                                            ),
-                                                                          ],
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     );

@@ -33,26 +33,33 @@ class CustomButton extends StatelessWidget {
         splashRadius: 3,
         padding: EdgeInsets.zero,
         iconSize: sy(constraints),
-        icon: Container(
-          height: sy(constraints),
-          width: sy(constraints),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(radius),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 1,
-              ),
-            ],
+        icon: Material(
+          elevation: 2,
+          borderRadius: BorderRadius.all(
+            Radius.circular(radius),
           ),
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: sy(iconSize),
+          color: backgroundColor,
+          child: Container(
+            height: sy(constraints),
+            width: sy(constraints),
+            // decoration: BoxDecoration(
+            //   color: backgroundColor,
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(radius),
+            //   ),
+            //   boxShadow: [
+            //     BoxShadow(
+            //       color: Colors.black.withOpacity(0.5),
+            //       spreadRadius: 1,
+            //       blurRadius: 1,
+            //     ),
+            //   ],
+            // ),
+            child: Icon(
+              icon,
+              color: iconColor,
+              size: sy(iconSize),
+            ),
           ),
         ),
         onPressed: onPressed,
