@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:path/path.dart';
+import 'package:intl/intl.dart';
 import 'package:momentum/momentum.dart';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:army_book/components/index.dart';
 import 'package:army_book/constants.dart';
 import 'package:army_book/models/index.dart';
@@ -129,6 +134,29 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     model.update(loading: true);
 
+    String? filePath;
+
+    if (model.selectedFile != null && model.selectedFile!.path.isNotEmpty) {
+      final format = DateFormat('dd-M-yyyy_HH.mm.ss', 'en_US');
+
+      String _time = format.format(DateTime.now());
+
+      final appDocumentDir = await getApplicationDocumentsDirectory();
+
+      final String fileName = '$_time _${basename(model.selectedFile!.path)}';
+      final String _subDir = 'LogBook';
+      final String _logBkDir = join(appDocumentDir.path, _subDir);
+
+      await new File(_logBkDir).create(recursive: true);
+
+      File newFile = await model.selectedFile!.copy(_logBkDir);
+      await newFile.rename(fileName);
+
+      filePath = join(_logBkDir, fileName);
+    }
+
+    logBook.filePath = filePath;
+
     final response = await _service.updateLogBook(logBook);
 
     switch (response.action) {
@@ -225,10 +253,32 @@ class HomeViewController extends MomentumController<HomeViewModel> {
 
     model.update(loading: true);
 
+    String? filePath;
+
+    if (model.selectedFile != null && model.selectedFile!.path.isNotEmpty) {
+      final format = DateFormat('dd-M-yyyy_HH.mm.ss', 'en_US');
+
+      String _time = format.format(DateTime.now());
+
+      final appDocumentDir = await getApplicationDocumentsDirectory();
+
+      final String fileName = '$_time _${basename(model.selectedFile!.path)}';
+      final String _subDir = 'LogBook';
+      final String _logBkDir = join(appDocumentDir.path, _subDir);
+
+      await new File(_logBkDir).create(recursive: true);
+
+      File newFile = await model.selectedFile!.copy(_logBkDir);
+      await newFile.rename(fileName);
+
+      filePath = join(_logBkDir, fileName);
+    }
+
     final logBook = LogBook(
       workdone: workdone.trim(),
       name: name.trim(),
       date: Timestamp.fromDateTime(model.entryDate!),
+      filePath: filePath,
     );
 
     final response = await _service.addLogBook(logBook);
