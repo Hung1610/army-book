@@ -8,27 +8,27 @@ Widget _getLoaderType(int type) {
   switch (type) {
     case 0:
       _defaultLoader = SpinKitRipple(
-        color: mainColor,
+        color: Colors.blueGrey,
       );
       break;
     case 1:
       _defaultLoader = SpinKitChasingDots(
-        color: mainColor,
+        color: Colors.blueGrey,
       );
       break;
     case 2:
       _defaultLoader = SpinKitCubeGrid(
-        color: mainColor,
+        color: Colors.blueGrey,
       );
       break;
     case 3:
       _defaultLoader = SpinKitFadingCube(
-        color: mainColor,
+        color: Colors.blueGrey,
       );
       break;
     default:
       _defaultLoader = SpinKitDoubleBounce(
-        color: mainColor,
+        color: Colors.blueGrey,
       );
   }
   return _defaultLoader;
