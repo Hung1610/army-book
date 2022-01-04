@@ -39,7 +39,7 @@ class _PdfGenViewState extends MomentumState<PdfGenView> {
     viewController = Momentum.controller<PdfPrinterViewController>(context);
 
     final param = MomentumRouter.getParam<PdfPrinterViewParam>(context);
-    if (param != null) viewController.model.update(logBookId: param!.logBookId);
+    if (param != null) viewController.model.update(logBookId: param.logBookId);
 
     super.initMomentumState();
   }
