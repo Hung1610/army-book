@@ -15,7 +15,7 @@ const priColor = Colors.black;
 const secondaryColor = Colors.white;
 const bgColor = Colors.white;
 
-final textColor = Colors.black.withOpacity(0.6);
+final textColor = Colors.black;
 
 final whiteColor = Colors.white.withOpacity(0.9);
 final mainColor = Colors.white;
