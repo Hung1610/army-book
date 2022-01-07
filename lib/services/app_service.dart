@@ -194,7 +194,7 @@ class AppService extends MomentumService {
       if (name != null && name.isNotEmpty)
         filter = Filter.and([
           filter,
-          Filter.matches('name', name),
+          Filter.matches('name', name.trim()),
         ]);
       if (from != null) {
         var fromTimestamp = Timestamp.fromDateTime(from);
