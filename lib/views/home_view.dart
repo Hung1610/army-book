@@ -706,7 +706,13 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                         backgroundColor: Colors.transparent,
                                                                                         radius: sy(30),
                                                                                         child: Icon(
-                                                                                          CupertinoIcons.book_circle_fill,
+                                                                                          _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                              ? CupertinoIcons.book_circle_fill
+                                                                                              : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
+                                                                                                  ? FontAwesomeIcons.solidFileExcel
+                                                                                                  : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
+                                                                                                      ? FontAwesomeIcons.solidFileWord
+                                                                                                      : Icons.file_present,
                                                                                           color: textColor,
                                                                                           size: sy(30),
                                                                                         ),
