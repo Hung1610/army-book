@@ -1,10 +1,12 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:army_book/utils/color_themes.dart';
 import 'package:army_book/views/index.dart';
 
 import 'package:army_book/widgets/index.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:momentum/momentum.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -53,14 +55,11 @@ class CustomAppBar extends StatelessWidget {
                 items: [
                   CollapsibleItem(
                     text: 'Văn bản',
-                    icon: Icons.assessment,
-                    onPressed: () => {},
+                    icon: CupertinoIcons.doc_richtext,
+                    onPressed: () =>
+                        //custom callback function called when title avatar or back icon is pressed
+                        MomentumRouter.goto(context, HomeView),
                     isSelected: true,
-                  ),
-                  CollapsibleItem(
-                    text: 'Nhân sự',
-                    icon: Icons.person,
-                    onPressed: () => {},
                   ),
                   CollapsibleItem(
                     text: 'Cài đặt',
