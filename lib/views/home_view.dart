@@ -889,15 +889,63 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                     ),
                                                                                   ],
                                                                                   builder: (context, remaining) {
-                                                                                    return CircleAvatar(
-                                                                                      child: Text('+$remaining',
-                                                                                          style: kStyle(
-                                                                                            size: 12,
-                                                                                          )),
-                                                                                      backgroundColor: Colors.red,
-                                                                                      maxRadius: 8,
-                                                                                      minRadius: 8,
-                                                                                    );
+                                                                                    var popupMenuEntries = [
+                                                                                      const PopupMenuItem<String>(
+                                                                                        value: 'view',
+                                                                                        child: Text('View'),
+                                                                                      ),
+                                                                                      const PopupMenuItem<String>(
+                                                                                        value: 'update',
+                                                                                        child: Text('Update'),
+                                                                                      ),
+                                                                                      const PopupMenuItem<String>(
+                                                                                        value: 'delete',
+                                                                                        child: Text('Delete'),
+                                                                                      ),
+                                                                                    ];
+                                                                                    popupMenuEntries.removeRange(0, 3 - remaining);
+                                                                                    return ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(3),
+                                                                                        child: Material(
+                                                                                            color: Colors.transparent,
+                                                                                            child: PopupMenuButton<String>(
+                                                                                              elevation: 2,
+                                                                                              icon: Text('+$remaining',
+                                                                                                  style: kStyle(
+                                                                                                    size: 12,
+                                                                                                  )),
+                                                                                              onSelected: (String result) {
+                                                                                                switch (result) {
+                                                                                                  case 'view':
+                                                                                                    model.update(
+                                                                                                      sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                      editLogBook: _logEntry,
+                                                                                                    );
+                                                                                                    break;
+
+                                                                                                  case 'edit':
+                                                                                                    model.update(
+                                                                                                      sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                                      editLogBook: _logEntry,
+                                                                                                    );
+                                                                                                    break;
+
+                                                                                                  case 'delete':
+                                                                                                    model.controller.sendLogDeleteSignal(index);
+                                                                                                    break;
+                                                                                                }
+                                                                                              },
+                                                                                              itemBuilder: (BuildContext context) => popupMenuEntries,
+                                                                                            )));
+                                                                                    // return CircleAvatar(
+                                                                                    //   child: Text('+$remaining',
+                                                                                    //       style: kStyle(
+                                                                                    //         size: 12,
+                                                                                    //       )),
+                                                                                    //   backgroundColor: Colors.red,
+                                                                                    //   maxRadius: 8,
+                                                                                    //   minRadius: 8,
+                                                                                    // );
                                                                                   },
                                                                                 ),
                                                                               ),
