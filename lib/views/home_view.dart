@@ -854,7 +854,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                   ],
                                                                                 ),
                                                                               ),
-                                                                              SizedBox(width: 15),
+                                                                              // SizedBox(width: 15),
                                                                               Expanded(
                                                                                 flex: 1,
                                                                                 child: OverflowView(
@@ -874,8 +874,12 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                       icon: CupertinoIcons.pencil,
                                                                                       tooltip: 'edit and update entry',
                                                                                       onPressed: () {
+                                                                                        name.text = _logEntry.name!;
+                                                                                        workDone.text = _logEntry.workdone!;
+
                                                                                         model.update(
                                                                                           sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                          selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
                                                                                           editLogBook: _logEntry,
                                                                                         );
                                                                                       },
@@ -923,9 +927,13 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                                     );
                                                                                                     break;
 
-                                                                                                  case 'edit':
+                                                                                                  case 'update':
+                                                                                                    name.text = _logEntry.name!;
+                                                                                                    workDone.text = _logEntry.workdone!;
+
                                                                                                     model.update(
                                                                                                       sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                                      selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
                                                                                                       editLogBook: _logEntry,
                                                                                                     );
                                                                                                     break;
