@@ -147,12 +147,12 @@ class HomeViewController extends MomentumController<HomeViewModel> {
       final String _subDir = 'LogBook';
       final String _logBkDir = join(appDocumentDir.path, _subDir);
 
-      await new File(_logBkDir).create(recursive: true);
-
-      File newFile = await model.selectedFile!.copy(_logBkDir);
-      await newFile.rename(fileName);
+      await new Directory(_logBkDir).create(recursive: true);
 
       filePath = join(_logBkDir, fileName);
+
+      File newFile = await model.selectedFile!.copy(filePath);
+      // await newFile.rename(fileName);
     }
 
     logBook.filePath = filePath;

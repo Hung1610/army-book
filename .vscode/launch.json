@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "log_book",
+            "name": "army_book",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "log_book (profile mode)",
+            "name": "army_book (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

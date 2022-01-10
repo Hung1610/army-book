@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:army_book/components/router-params/pdf-printer-view.param.dart';
 import 'package:momentum/momentum.dart';
+import 'package:open_file/open_file.dart';
 import 'package:overflow_view/overflow_view.dart';
 
 import 'package:army_book/components/index.dart';
@@ -598,85 +599,346 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                         WrapAlignment.center,
                                                     runSpacing: 20,
                                                     children: [
-                                                        Expanded(
-                                                          child: model.viewMode ==
-                                                                  ViewMode.List
-                                                              ? ListView
-                                                                  .separated(
-                                                                  controller:
-                                                                      ScrollController(),
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    final _logEntry =
-                                                                        model.logBooks![
-                                                                            index];
+                                                        model.viewMode ==
+                                                                ViewMode.List
+                                                            ? ListView
+                                                                .separated(
+                                                                controller:
+                                                                    ScrollController(),
+                                                                shrinkWrap:
+                                                                    true,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  final _logEntry =
+                                                                      model.logBooks![
+                                                                          index];
 
-                                                                    return SlideInUp(
+                                                                  return SlideInUp(
+                                                                    child:
+                                                                        ConstrainedBox(
+                                                                      constraints:
+                                                                          BoxConstraints(
+                                                                        maxHeight:
+                                                                            sy(140),
+                                                                        minHeight:
+                                                                            sy(70),
+                                                                      ),
                                                                       child:
-                                                                          ConstrainedBox(
-                                                                        constraints:
-                                                                            BoxConstraints(
-                                                                          maxHeight:
-                                                                              sy(140),
-                                                                          minHeight:
-                                                                              sy(70),
-                                                                        ),
+                                                                          Container(
+                                                                        padding:
+                                                                            EdgeInsets.all(2),
                                                                         child:
-                                                                            Container(
-                                                                          padding:
-                                                                              EdgeInsets.all(2),
+                                                                            Material(
+                                                                          elevation:
+                                                                              2,
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(5.0)),
+                                                                          color:
+                                                                              secondaryColor,
                                                                           child:
-                                                                              Material(
-                                                                            elevation:
-                                                                                2,
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(5.0)),
-                                                                            color:
-                                                                                secondaryColor,
+                                                                              Container(
+                                                                            padding:
+                                                                                EdgeInsets.all(defaultPadding),
                                                                             child:
-                                                                                Container(
-                                                                              padding: EdgeInsets.all(defaultPadding),
-                                                                              child: Column(
-                                                                                children: [
-                                                                                  Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Column(
-                                                                                        children: [
-                                                                                          AutoSizeText(
-                                                                                            _logEntry.name!,
-                                                                                            overflow: TextOverflow.ellipsis,
-                                                                                            minFontSize: 16,
-                                                                                            maxFontSize: 20,
-                                                                                            style: kStyle(
-                                                                                              size: 16,
-                                                                                            ),
-                                                                                            maxLines: 4,
-                                                                                            softWrap: true,
-                                                                                            // overflowReplacement:Text('...'),
+                                                                                Column(
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Column(
+                                                                                      children: [
+                                                                                        AutoSizeText(
+                                                                                          _logEntry.name!,
+                                                                                          overflow: TextOverflow.ellipsis,
+                                                                                          minFontSize: 16,
+                                                                                          maxFontSize: 20,
+                                                                                          style: kStyle(
+                                                                                            size: 16,
                                                                                           ),
-                                                                                        ],
-                                                                                      ),
-                                                                                      Column(
-                                                                                        children: [
-                                                                                          Row(
-                                                                                            children: [
-                                                                                              CustomButton(
-                                                                                                  icon: CupertinoIcons.eye,
-                                                                                                  tooltip: 'view more details',
-                                                                                                  onPressed: () {
-                                                                                                    model.update(
-                                                                                                      sideBarSignal: SideBarSignal.ViewLogBook,
-                                                                                                      editLogBook: _logEntry,
-                                                                                                    );
-                                                                                                  }),
-                                                                                              CustomButton(
-                                                                                                icon: CupertinoIcons.pencil,
-                                                                                                tooltip: 'edit and update entry',
+                                                                                          maxLines: 4,
+                                                                                          softWrap: true,
+                                                                                          // overflowReplacement:Text('...'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    Column(
+                                                                                      children: [
+                                                                                        Row(
+                                                                                          children: [
+                                                                                            CustomButton(
+                                                                                                icon: CupertinoIcons.eye,
+                                                                                                tooltip: 'view more details',
                                                                                                 onPressed: () {
+                                                                                                  model.update(
+                                                                                                    sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                    editLogBook: _logEntry,
+                                                                                                  );
+                                                                                                }),
+                                                                                            CustomButton(
+                                                                                              icon: CupertinoIcons.pencil,
+                                                                                              tooltip: 'edit and update entry',
+                                                                                              onPressed: () {
+                                                                                                name.text = _logEntry.name!;
+                                                                                                workDone.text = _logEntry.workdone!;
+
+                                                                                                model.update(
+                                                                                                  sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                                  selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
+                                                                                                  editLogBook: _logEntry,
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                            CustomButton(
+                                                                                              icon: CupertinoIcons.delete,
+                                                                                              tooltip: 'delete logbook entry',
+                                                                                              onPressed: () {
+                                                                                                model.controller.sendLogDeleteSignal(index);
+                                                                                              },
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    CircleAvatar(
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        radius: sy(30),
+                                                                                        child: _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                            ? Icon(CupertinoIcons.book_circle_fill, color: textColor, size: sy(30))
+                                                                                            : IconButton(
+                                                                                                splashRadius: 3,
+                                                                                                tooltip: 'Click to open',
+                                                                                                onPressed: () {
+                                                                                                  OpenFile.open(_logEntry.filePath);
+                                                                                                },
+                                                                                                icon: Icon(path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc') ? FontAwesomeIcons.solidFileWord : Icons.file_present, color: textColor, size: sy(30)),
+                                                                                              )),
+                                                                                    SizedBox(width: sy(8)),
+                                                                                    AutoSizeText(
+                                                                                      _logEntry.workdone!,
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                      minFontSize: 14,
+                                                                                      maxFontSize: 14,
+                                                                                      style: kStyle(
+                                                                                        size: 14,
+                                                                                      ),
+                                                                                      maxLines: 4,
+                                                                                      softWrap: true,
+                                                                                      // overflowReplacement:Text('...'),
+                                                                                    ),
+                                                                                    Spacer(),
+                                                                                    Text(
+                                                                                      DateFormat('dd-MMM-yyyy').format(
+                                                                                        _logEntry.date!.toDateTime(),
+                                                                                      ),
+                                                                                      style: kStyle(
+                                                                                        size: 11,
+                                                                                        color: textColor,
+                                                                                        italize: true,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                separatorBuilder: (_,
+                                                                        index) =>
+                                                                    SizedBox(
+                                                                        height:
+                                                                            sy(25)),
+                                                                itemCount: model
+                                                                    .logBooks!
+                                                                    .length,
+                                                              )
+                                                            : StaggeredGridView
+                                                                .countBuilder(
+                                                                controller:
+                                                                    ScrollController(),
+                                                                physics:
+                                                                    NeverScrollableScrollPhysics(),
+                                                                shrinkWrap:
+                                                                    true,
+                                                                crossAxisCount:
+                                                                    3,
+                                                                crossAxisSpacing:
+                                                                    sy(30),
+                                                                mainAxisSpacing:
+                                                                    sy(40),
+                                                                itemCount: model
+                                                                    .logBooks!
+                                                                    .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  final _logEntry =
+                                                                      model.logBooks![
+                                                                          index];
+
+                                                                  return ZoomIn(
+                                                                    child:
+                                                                        Material(
+                                                                      elevation:
+                                                                          2,
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(5.0)),
+                                                                      color:
+                                                                          secondaryColor,
+                                                                      child:
+                                                                          Container(
+                                                                        // height: sy(120),
+                                                                        // width: sy(180),
+                                                                        padding:
+                                                                            EdgeInsets.all(defaultPadding),
+                                                                        child:
+                                                                            Row(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              flex: 5,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Expanded(
+                                                                                    child: AutoSizeText(
+                                                                                      _logEntry.name!,
+                                                                                      // overflow: TextOverflow.ellipsis,
+                                                                                      minFontSize: 15,
+                                                                                      maxFontSize: 15,
+                                                                                      style: kStyle(
+                                                                                        size: 15,
+                                                                                      ),
+                                                                                      maxLines: 8,
+                                                                                      softWrap: true,
+                                                                                      // overflowReplacement:Text('...'),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Expanded(
+                                                                                    child: CircleAvatar(
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        radius: sy(30),
+                                                                                        child: _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                            ? Icon(CupertinoIcons.book_circle_fill, color: textColor, size: sy(30))
+                                                                                            : IconButton(
+                                                                                                splashRadius: 3,
+                                                                                                tooltip: 'Click to open',
+                                                                                                onPressed: () {
+                                                                                                  OpenFile.open(_logEntry.filePath);
+                                                                                                },
+                                                                                                icon: Icon(path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc') ? FontAwesomeIcons.solidFileWord : Icons.file_present, color: textColor, size: sy(30)),
+                                                                                              )
+                                                                                        // Icon(
+                                                                                        //   _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                        //       ? CupertinoIcons.book_circle_fill
+                                                                                        //       : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
+                                                                                        //           ? FontAwesomeIcons.solidFileExcel
+                                                                                        //           : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
+                                                                                        //               ? FontAwesomeIcons.solidFileWord
+                                                                                        //               : Icons.file_present,
+                                                                                        //   color: textColor,
+                                                                                        //   size: sy(30),
+                                                                                        // ),
+                                                                                        ),
+                                                                                  ),
+                                                                                  Spacer(),
+                                                                                  Text(
+                                                                                    DateFormat('dd-MMM-yyyy').format(
+                                                                                      _logEntry.date!.toDateTime(),
+                                                                                    ),
+                                                                                    style: kStyle(
+                                                                                      size: 13,
+                                                                                      color: textColor,
+                                                                                      italize: true,
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            // SizedBox(width: 15),
+                                                                            Expanded(
+                                                                              flex: 1,
+                                                                              child: OverflowView(
+                                                                                direction: Axis.vertical,
+                                                                                spacing: 4,
+                                                                                children: [
+                                                                                  CustomButton(
+                                                                                      icon: CupertinoIcons.eye,
+                                                                                      tooltip: 'view more details',
+                                                                                      onPressed: () {
+                                                                                        model.update(
+                                                                                          sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                          editLogBook: _logEntry,
+                                                                                        );
+                                                                                      }),
+                                                                                  CustomButton(
+                                                                                    icon: CupertinoIcons.pencil,
+                                                                                    tooltip: 'edit and update entry',
+                                                                                    onPressed: () {
+                                                                                      name.text = _logEntry.name!;
+                                                                                      workDone.text = _logEntry.workdone!;
+
+                                                                                      model.update(
+                                                                                        sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                        selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
+                                                                                        editLogBook: _logEntry,
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                  CustomButton(
+                                                                                    icon: CupertinoIcons.delete,
+                                                                                    tooltip: 'delete logbook entry',
+                                                                                    onPressed: () {
+                                                                                      model.controller.sendLogDeleteSignal(index);
+                                                                                    },
+                                                                                  ),
+                                                                                ],
+                                                                                builder: (context, remaining) {
+                                                                                  var popupMenuEntries = [
+                                                                                    const PopupMenuItem<String>(
+                                                                                      value: 'view',
+                                                                                      child: Text('View'),
+                                                                                    ),
+                                                                                    const PopupMenuItem<String>(
+                                                                                      value: 'update',
+                                                                                      child: Text('Update'),
+                                                                                    ),
+                                                                                    const PopupMenuItem<String>(
+                                                                                      value: 'delete',
+                                                                                      child: Text('Delete'),
+                                                                                    ),
+                                                                                  ];
+                                                                                  popupMenuEntries.removeRange(0, 3 - remaining);
+                                                                                  return ClipRRect(
+                                                                                      borderRadius: BorderRadius.circular(3),
+                                                                                      child: Material(
+                                                                                          color: Colors.transparent,
+                                                                                          child: PopupMenuButton<String>(
+                                                                                            elevation: 2,
+                                                                                            icon: Text('+$remaining',
+                                                                                                style: kStyle(
+                                                                                                  size: 12,
+                                                                                                )),
+                                                                                            onSelected: (String result) {
+                                                                                              switch (result) {
+                                                                                                case 'view':
+                                                                                                  model.update(
+                                                                                                    sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                    editLogBook: _logEntry,
+                                                                                                  );
+                                                                                                  break;
+
+                                                                                                case 'update':
                                                                                                   name.text = _logEntry.name!;
                                                                                                   workDone.text = _logEntry.workdone!;
 
@@ -685,294 +947,42 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                                     selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
                                                                                                     editLogBook: _logEntry,
                                                                                                   );
-                                                                                                },
-                                                                                              ),
-                                                                                              CustomButton(
-                                                                                                icon: CupertinoIcons.delete,
-                                                                                                tooltip: 'delete logbook entry',
-                                                                                                onPressed: () {
+                                                                                                  break;
+
+                                                                                                case 'delete':
                                                                                                   model.controller.sendLogDeleteSignal(index);
-                                                                                                },
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                  Row(
-                                                                                    children: [
-                                                                                      CircleAvatar(
-                                                                                        backgroundColor: Colors.transparent,
-                                                                                        radius: sy(30),
-                                                                                        child: Icon(
-                                                                                          _logEntry.filePath == null || _logEntry.filePath!.isEmpty
-                                                                                              ? CupertinoIcons.book_circle_fill
-                                                                                              : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
-                                                                                                  ? FontAwesomeIcons.solidFileExcel
-                                                                                                  : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
-                                                                                                      ? FontAwesomeIcons.solidFileWord
-                                                                                                      : Icons.file_present,
-                                                                                          color: textColor,
-                                                                                          size: sy(30),
-                                                                                        ),
-                                                                                      ),
-                                                                                      SizedBox(width: sy(8)),
-                                                                                      AutoSizeText(
-                                                                                        _logEntry.workdone!,
-                                                                                        overflow: TextOverflow.ellipsis,
-                                                                                        minFontSize: 14,
-                                                                                        maxFontSize: 14,
-                                                                                        style: kStyle(
-                                                                                          size: 14,
-                                                                                        ),
-                                                                                        maxLines: 4,
-                                                                                        softWrap: true,
-                                                                                        // overflowReplacement:Text('...'),
-                                                                                      ),
-                                                                                      Spacer(),
-                                                                                      Text(
-                                                                                        DateFormat('dd-MMM-yyyy').format(
-                                                                                          _logEntry.date!.toDateTime(),
-                                                                                        ),
-                                                                                        style: kStyle(
-                                                                                          size: 11,
-                                                                                          color: textColor,
-                                                                                          italize: true,
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ],
+                                                                                                  break;
+                                                                                              }
+                                                                                            },
+                                                                                            itemBuilder: (BuildContext context) => popupMenuEntries,
+                                                                                          )));
+                                                                                  // return CircleAvatar(
+                                                                                  //   child: Text('+$remaining',
+                                                                                  //       style: kStyle(
+                                                                                  //         size: 12,
+                                                                                  //       )),
+                                                                                  //   backgroundColor: Colors.red,
+                                                                                  //   maxRadius: 8,
+                                                                                  //   minRadius: 8,
+                                                                                  // );
+                                                                                },
                                                                               ),
                                                                             ),
-                                                                          ),
+                                                                          ],
                                                                         ),
                                                                       ),
-                                                                    );
-                                                                  },
-                                                                  separatorBuilder: (_,
-                                                                          index) =>
-                                                                      SizedBox(
-                                                                          height:
-                                                                              sy(25)),
-                                                                  itemCount: model
-                                                                      .logBooks!
-                                                                      .length,
-                                                                )
-                                                              : StaggeredGridView
-                                                                  .countBuilder(
-                                                                  controller:
-                                                                      ScrollController(),
-                                                                  physics:
-                                                                      NeverScrollableScrollPhysics(),
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  crossAxisCount:
-                                                                      3,
-                                                                  crossAxisSpacing:
-                                                                      sy(30),
-                                                                  mainAxisSpacing:
-                                                                      sy(40),
-                                                                  itemCount: model
-                                                                      .logBooks!
-                                                                      .length,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    final _logEntry =
-                                                                        model.logBooks![
-                                                                            index];
-
-                                                                    return ZoomIn(
-                                                                      child:
-                                                                          Material(
-                                                                        elevation:
-                                                                            2,
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(5.0)),
-                                                                        color:
-                                                                            secondaryColor,
-                                                                        child:
-                                                                            Container(
-                                                                          // height: sy(120),
-                                                                          // width: sy(180),
-                                                                          padding:
-                                                                              EdgeInsets.all(defaultPadding),
-                                                                          child:
-                                                                              Row(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Expanded(
-                                                                                flex: 5,
-                                                                                child: Column(
-                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: AutoSizeText(
-                                                                                        _logEntry.name!,
-                                                                                        // overflow: TextOverflow.ellipsis,
-                                                                                        minFontSize: 15,
-                                                                                        maxFontSize: 15,
-                                                                                        style: kStyle(
-                                                                                          size: 15,
-                                                                                        ),
-                                                                                        maxLines: 8,
-                                                                                        softWrap: true,
-                                                                                        // overflowReplacement:Text('...'),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Expanded(
-                                                                                      child: CircleAvatar(
-                                                                                        backgroundColor: Colors.transparent,
-                                                                                        radius: sy(30),
-                                                                                        child: Icon(
-                                                                                          _logEntry.filePath == null || _logEntry.filePath!.isEmpty
-                                                                                              ? CupertinoIcons.book_circle_fill
-                                                                                              : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
-                                                                                                  ? FontAwesomeIcons.solidFileExcel
-                                                                                                  : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
-                                                                                                      ? FontAwesomeIcons.solidFileWord
-                                                                                                      : Icons.file_present,
-                                                                                          color: textColor,
-                                                                                          size: sy(30),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Spacer(),
-                                                                                    Text(
-                                                                                      DateFormat('dd-MMM-yyyy').format(
-                                                                                        _logEntry.date!.toDateTime(),
-                                                                                      ),
-                                                                                      style: kStyle(
-                                                                                        size: 13,
-                                                                                        color: textColor,
-                                                                                        italize: true,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                              // SizedBox(width: 15),
-                                                                              Expanded(
-                                                                                flex: 1,
-                                                                                child: OverflowView(
-                                                                                  direction: Axis.vertical,
-                                                                                  spacing: 4,
-                                                                                  children: [
-                                                                                    CustomButton(
-                                                                                        icon: CupertinoIcons.eye,
-                                                                                        tooltip: 'view more details',
-                                                                                        onPressed: () {
-                                                                                          model.update(
-                                                                                            sideBarSignal: SideBarSignal.ViewLogBook,
-                                                                                            editLogBook: _logEntry,
-                                                                                          );
-                                                                                        }),
-                                                                                    CustomButton(
-                                                                                      icon: CupertinoIcons.pencil,
-                                                                                      tooltip: 'edit and update entry',
-                                                                                      onPressed: () {
-                                                                                        name.text = _logEntry.name!;
-                                                                                        workDone.text = _logEntry.workdone!;
-
-                                                                                        model.update(
-                                                                                          sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                          selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
-                                                                                          editLogBook: _logEntry,
-                                                                                        );
-                                                                                      },
-                                                                                    ),
-                                                                                    CustomButton(
-                                                                                      icon: CupertinoIcons.delete,
-                                                                                      tooltip: 'delete logbook entry',
-                                                                                      onPressed: () {
-                                                                                        model.controller.sendLogDeleteSignal(index);
-                                                                                      },
-                                                                                    ),
-                                                                                  ],
-                                                                                  builder: (context, remaining) {
-                                                                                    var popupMenuEntries = [
-                                                                                      const PopupMenuItem<String>(
-                                                                                        value: 'view',
-                                                                                        child: Text('View'),
-                                                                                      ),
-                                                                                      const PopupMenuItem<String>(
-                                                                                        value: 'update',
-                                                                                        child: Text('Update'),
-                                                                                      ),
-                                                                                      const PopupMenuItem<String>(
-                                                                                        value: 'delete',
-                                                                                        child: Text('Delete'),
-                                                                                      ),
-                                                                                    ];
-                                                                                    popupMenuEntries.removeRange(0, 3 - remaining);
-                                                                                    return ClipRRect(
-                                                                                        borderRadius: BorderRadius.circular(3),
-                                                                                        child: Material(
-                                                                                            color: Colors.transparent,
-                                                                                            child: PopupMenuButton<String>(
-                                                                                              elevation: 2,
-                                                                                              icon: Text('+$remaining',
-                                                                                                  style: kStyle(
-                                                                                                    size: 12,
-                                                                                                  )),
-                                                                                              onSelected: (String result) {
-                                                                                                switch (result) {
-                                                                                                  case 'view':
-                                                                                                    model.update(
-                                                                                                      sideBarSignal: SideBarSignal.ViewLogBook,
-                                                                                                      editLogBook: _logEntry,
-                                                                                                    );
-                                                                                                    break;
-
-                                                                                                  case 'update':
-                                                                                                    name.text = _logEntry.name!;
-                                                                                                    workDone.text = _logEntry.workdone!;
-
-                                                                                                    model.update(
-                                                                                                      sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                                      selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
-                                                                                                      editLogBook: _logEntry,
-                                                                                                    );
-                                                                                                    break;
-
-                                                                                                  case 'delete':
-                                                                                                    model.controller.sendLogDeleteSignal(index);
-                                                                                                    break;
-                                                                                                }
-                                                                                              },
-                                                                                              itemBuilder: (BuildContext context) => popupMenuEntries,
-                                                                                            )));
-                                                                                    // return CircleAvatar(
-                                                                                    //   child: Text('+$remaining',
-                                                                                    //       style: kStyle(
-                                                                                    //         size: 12,
-                                                                                    //       )),
-                                                                                    //   backgroundColor: Colors.red,
-                                                                                    //   maxRadius: 8,
-                                                                                    //   minRadius: 8,
-                                                                                    // );
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                  staggeredTileBuilder:
-                                                                      (index) {
-                                                                    return StaggeredTile.count(
-                                                                        1,
-                                                                        index.isEven
-                                                                            ? 0.6
-                                                                            : 0.65);
-                                                                  },
-                                                                ),
-                                                        ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                staggeredTileBuilder:
+                                                                    (index) {
+                                                                  return StaggeredTile.count(
+                                                                      1,
+                                                                      index.isEven
+                                                                          ? 0.6
+                                                                          : 0.65);
+                                                                },
+                                                              ),
                                                         SizedBox(
                                                           height: 40,
                                                         ),
