@@ -22,6 +22,8 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
     this.toSearchDate,
     this.viewMode,
     this.editLogBook,
+    this.dropdownValue,
+    this.searchType,
   }) : super(controller);
 
   final SideBarSignal? sideBarSignal;
@@ -36,6 +38,8 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
   final bool? sideBarLoading;
   final LogBook? editLogBook;
   final ViewMode? viewMode;
+  final String? dropdownValue;
+  final String? searchType;
 
   @override
   void update({
@@ -51,6 +55,8 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
     bool? sideBarLoading,
     LogBook? editLogBook,
     ViewMode? viewMode,
+    String? dropdownValue,
+    String? searchType,
     bool updateFromDateFilter: false,
     bool updateToDateFilter: false,
   }) {
@@ -69,6 +75,8 @@ class HomeViewModel extends MomentumModel<HomeViewController> {
       todos: todos ?? this.todos,
       logBooks: logBooks ?? this.logBooks,
       loading: loading ?? this.loading,
+      searchType: searchType ?? this.searchType,
+      dropdownValue: dropdownValue ?? this.dropdownValue,
       sideBarLoading: sideBarLoading ?? this.sideBarLoading,
       editLogBook: editLogBook ?? this.editLogBook,
     ).updateMomentum();

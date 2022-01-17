@@ -9,6 +9,7 @@ class LogBook {
   String? workdone;
   String? jsonContent;
   String? filePath;
+  String? docType;
   final Timestamp? date;
 
   LogBook(
@@ -17,6 +18,7 @@ class LogBook {
       this.workdone,
       this.date,
       this.jsonContent,
+      this.docType,
       this.filePath});
 
   Map<String, dynamic> toMap() {
@@ -26,6 +28,7 @@ class LogBook {
       'workdone': workdone,
       'date': date,
       'jsonContent': jsonContent,
+      'docType': docType,
       'filePath': filePath,
     };
   }
@@ -37,6 +40,7 @@ class LogBook {
       workdone: map['workdone'] ?? '',
       date: map['date'],
       jsonContent: map['jsonContent'],
+      docType: map['docType'],
       filePath: map['filePath'] ?? '',
     );
   }
@@ -45,5 +49,5 @@ class LogBook {
 
   @override
   String toString() =>
-      'LogBook(id: $id, workdone: $workdone, date: $date, jsonContent: $jsonContent, filePath: $filePath)';
+      'LogBook(id: $id, workdone: $workdone, date: $date, jsonContent: $jsonContent, docType: $docType, filePath: $filePath)';
 }

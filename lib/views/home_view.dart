@@ -120,6 +120,21 @@ class _HomeViewState extends MomentumState<HomeView> {
                   builder: (context, snapshot) {
                     final model = snapshot<HomeViewModel>();
 
+                    const blankMenuItem = DropdownMenuItem<String>(
+                      value: '',
+                      child: Text('Tất cả'),
+                    );
+                    var menuItems = DocType.values
+                        .map<DropdownMenuItem<String>>((DocType value) {
+                      var item = DropdownMenuItem<String>(
+                        value: value.name,
+                        child: Text(
+                            value == DocType.GiaoTrinh ? 'Giáo trình' : 'Khác'),
+                      );
+                      return item;
+                    }).toList();
+                    menuItems.insert(0, blankMenuItem);
+
                     return SingleChildScrollView(
                       controller: ScrollController(),
                       child: Padding(
@@ -244,22 +259,52 @@ class _HomeViewState extends MomentumState<HomeView> {
                                             Expanded(
                                                 child: Column(
                                               children: [
-                                                TextField(
+                                                TextFormField(
                                                   controller:
                                                       nameSearchController,
                                                   decoration: InputDecoration(
-                                                    suffixIcon: Icon(
-                                                      Icons.search,
-                                                      size: 20.0,
-                                                    ),
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.red,
-                                                          width: 5.0),
-                                                    ),
+                                                      suffixIcon: Icon(
+                                                        Icons.search,
+                                                        size: 20.0,
+                                                      ),
+                                                      hintText:
+                                                          'Tìm theo tên tài liệu',
+                                                      labelText:
+                                                          'Tên tài liệu'),
+                                                ),
+                                              ],
+                                            )),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        height: sy(50),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                                child: Column(
+                                              children: [
+                                                DropdownButtonFormField<String>(
+                                                  value: model.dropdownValue,
+                                                  icon: const Icon(
+                                                      Icons.arrow_downward),
+                                                  elevation: 2,
+                                                  decoration: InputDecoration(
+                                                    filled: false,
                                                     hintText:
-                                                        'Tìm theo tên tài liệu',
+                                                        'Tìm theo loại tài liệu',
+                                                    labelText: 'Loại tài liệu',
                                                   ),
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    model.update(
+                                                        searchType: newValue);
+                                                  },
+                                                  items: menuItems,
                                                 ),
                                               ],
                                             ))
@@ -1186,6 +1231,27 @@ class _HomeViewState extends MomentumState<HomeView> {
                       ),
                     ),
                     SizedBox(height: 30),
+                    DropdownButtonFormField<String>(
+                      value: model.dropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 2,
+                      decoration: InputDecoration(
+                        filled: false,
+                        labelText: 'Loại tài liệu',
+                      ),
+                      onChanged: (String? newValue) {
+                        model.update(dropdownValue: newValue);
+                      },
+                      items: DocType.values
+                          .map<DropdownMenuItem<String>>((DocType value) {
+                        return DropdownMenuItem<String>(
+                          value: value.name,
+                          child: Text(value == DocType.GiaoTrinh
+                              ? 'Giáo trình'
+                              : 'Khác'),
+                        );
+                      }).toList(),
+                    ),
                     formEntryField(
                       title: 'Tên tài liệu',
                       context: context,
@@ -1372,6 +1438,27 @@ class _HomeViewState extends MomentumState<HomeView> {
                       ),
                     ),
                     SizedBox(height: 30),
+                    DropdownButtonFormField<String>(
+                      value: model.editLogBook!.docType,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 2,
+                      decoration: InputDecoration(
+                        filled: false,
+                        labelText: 'Loại tài liệu',
+                      ),
+                      onChanged: (String? newValue) {
+                        model.update(dropdownValue: newValue);
+                      },
+                      items: DocType.values
+                          .map<DropdownMenuItem<String>>((DocType value) {
+                        return DropdownMenuItem<String>(
+                          value: value.name,
+                          child: Text(value == DocType.GiaoTrinh
+                              ? 'Giáo trình'
+                              : 'Khác'),
+                        );
+                      }).toList(),
+                    ),
                     formEntryField(
                       title: 'Tên tài liệu',
                       context: context,
@@ -1464,6 +1551,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                 final _entry = model.editLogBook;
                                 _entry!.workdone = workDone.text;
                                 _entry.name = name.text;
+                                _entry.docType = model.dropdownValue;
 
                                 await model.controller.updateLogBook(_entry);
                               }

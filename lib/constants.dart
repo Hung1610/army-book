@@ -37,6 +37,12 @@ enum ResponseEventAction {
   DeleteLogEntry,
 }
 
+/// document type as enum
+enum DocType {
+  GiaoTrinh,
+  Others,
+}
+
 const String logHintText = """
 - Viết mô tả nội dung tài liệu.
 - Mô tả ngắn gọn, đầy đủ.

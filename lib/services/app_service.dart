@@ -183,11 +183,13 @@ class AppService extends MomentumService {
     }
   }
 
-  Future<AppResponse> getLogBooks(
-      {bool descendSort: false,
-      String? name: null,
-      DateTime? from: null,
-      DateTime? to: null}) async {
+  Future<AppResponse> getLogBooks({
+    bool descendSort: false,
+    String? name: null,
+    DateTime? from: null,
+    DateTime? to: null,
+    String? docType: null,
+  }) async {
     try {
       Filter? filter = Filter.custom((record) => true);
 
@@ -195,6 +197,11 @@ class AppService extends MomentumService {
         filter = Filter.and([
           filter,
           Filter.matches('name', name.trim()),
+        ]);
+      if (docType != null && docType.isNotEmpty)
+        filter = Filter.and([
+          filter,
+          Filter.equals('docType', docType.trim()),
         ]);
       if (from != null) {
         var fromTimestamp = Timestamp.fromDateTime(from);

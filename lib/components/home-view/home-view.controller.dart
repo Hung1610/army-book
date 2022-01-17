@@ -47,7 +47,8 @@ class HomeViewController extends MomentumController<HomeViewModel> {
     await loadLogBooks(
         name: model.nameSearch,
         from: model.fromSearchDate,
-        to: model.toSearchDate);
+        to: model.toSearchDate,
+        docType: model.searchType);
   }
 
   /// load all todos
@@ -90,14 +91,18 @@ class HomeViewController extends MomentumController<HomeViewModel> {
   /// load all logbooks
   /// TODO: Use streams
   Future<void> loadLogBooks(
-      {String? name: null, DateTime? from: null, DateTime? to: null}) async {
+      {String? name: null,
+      DateTime? from: null,
+      DateTime? to: null,
+      String? docType: null}) async {
     // service DI
     final _service = service<AppService>();
 
     model.update(loading: true);
     await Future.delayed(Duration(seconds: 1));
 
-    final response = await _service.getLogBooks(name: name, from: from, to: to);
+    final response = await _service.getLogBooks(
+        name: name, from: from, to: to, docType: docType);
 
     switch (response.action) {
       case ResponseAction.Success:
@@ -278,6 +283,7 @@ class HomeViewController extends MomentumController<HomeViewModel> {
       workdone: workdone.trim(),
       name: name.trim(),
       date: Timestamp.fromDateTime(model.entryDate!),
+      docType: model.dropdownValue,
       filePath: filePath,
     );
 
