@@ -691,7 +691,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                   children: [
                                                                                     Material(
                                                                                       borderRadius: BorderRadius.circular(20),
-                                                                                      color: Colors.amber,
+                                                                                      color: Colors.red,
                                                                                       elevation: 2,
                                                                                       child: Padding(
                                                                                           padding: EdgeInsets.all(5),
@@ -700,7 +700,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                             overflow: TextOverflow.ellipsis,
                                                                                             minFontSize: 12,
                                                                                             maxFontSize: 14,
-                                                                                            style: kStyle(),
+                                                                                            style: kStyle(color: Colors.white),
                                                                                             maxLines: 4,
                                                                                             softWrap: true,
                                                                                             // overflowReplacement:Text('...'),
@@ -875,7 +875,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                     children: [
                                                                                       Material(
                                                                                         borderRadius: BorderRadius.circular(20),
-                                                                                        color: Colors.amber,
+                                                                                        color: Colors.red,
                                                                                         elevation: 2,
                                                                                         child: Padding(
                                                                                             padding: EdgeInsets.all(5),
@@ -884,7 +884,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                               overflow: TextOverflow.ellipsis,
                                                                                               minFontSize: 12,
                                                                                               maxFontSize: 14,
-                                                                                              style: kStyle(),
+                                                                                              style: kStyle(color: Colors.white),
                                                                                               maxLines: 4,
                                                                                               softWrap: true,
                                                                                               // overflowReplacement:Text('...'),
