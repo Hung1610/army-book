@@ -665,7 +665,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                       constraints:
                                                                           BoxConstraints(
                                                                         maxHeight:
-                                                                            sy(140),
+                                                                            sy(150),
                                                                         minHeight:
                                                                             sy(70),
                                                                       ),
@@ -688,6 +688,27 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                             child:
                                                                                 Column(
                                                                               children: [
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Material(
+                                                                                      borderRadius: BorderRadius.circular(20),
+                                                                                      color: Colors.amber,
+                                                                                      elevation: 2,
+                                                                                      child: Padding(
+                                                                                          padding: EdgeInsets.all(5),
+                                                                                          child: AutoSizeText(
+                                                                                            _logEntry.docType!,
+                                                                                            overflow: TextOverflow.ellipsis,
+                                                                                            minFontSize: 12,
+                                                                                            maxFontSize: 14,
+                                                                                            style: kStyle(),
+                                                                                            maxLines: 4,
+                                                                                            softWrap: true,
+                                                                                            // overflowReplacement:Text('...'),
+                                                                                          )),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
                                                                                 Row(
                                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                   children: [
@@ -841,180 +862,211 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                           secondaryColor,
                                                                       child:
                                                                           Container(
-                                                                        // height: sy(120),
-                                                                        // width: sy(180),
                                                                         padding:
                                                                             EdgeInsets.all(defaultPadding),
-                                                                        child:
-                                                                            Row(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 5,
-                                                                              child: Column(
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  Expanded(
-                                                                                    child: AutoSizeText(
-                                                                                      _logEntry.name!,
-                                                                                      // overflow: TextOverflow.ellipsis,
-                                                                                      minFontSize: 15,
-                                                                                      maxFontSize: 15,
-                                                                                      style: kStyle(
-                                                                                        size: 15,
-                                                                                      ),
-                                                                                      maxLines: 8,
-                                                                                      softWrap: true,
-                                                                                      // overflowReplacement:Text('...'),
-                                                                                    ),
+                                                                        child: Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Expanded(
+                                                                                flex: 5,
+                                                                                child: Column(children: [
+                                                                                  Row(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Material(
+                                                                                        borderRadius: BorderRadius.circular(20),
+                                                                                        color: Colors.amber,
+                                                                                        elevation: 2,
+                                                                                        child: Padding(
+                                                                                            padding: EdgeInsets.all(5),
+                                                                                            child: AutoSizeText(
+                                                                                              _logEntry.docType!,
+                                                                                              overflow: TextOverflow.ellipsis,
+                                                                                              minFontSize: 12,
+                                                                                              maxFontSize: 14,
+                                                                                              style: kStyle(),
+                                                                                              maxLines: 4,
+                                                                                              softWrap: true,
+                                                                                              // overflowReplacement:Text('...'),
+                                                                                            )),
+                                                                                      )
+                                                                                    ],
                                                                                   ),
-                                                                                  Expanded(
-                                                                                    child: CircleAvatar(
-                                                                                        backgroundColor: Colors.transparent,
-                                                                                        radius: sy(30),
-                                                                                        child: _logEntry.filePath == null || _logEntry.filePath!.isEmpty
-                                                                                            ? Icon(CupertinoIcons.book_circle_fill, color: textColor, size: sy(30))
-                                                                                            : IconButton(
-                                                                                                splashRadius: 3,
-                                                                                                tooltip: 'Click to open',
-                                                                                                onPressed: () {
-                                                                                                  OpenFile.open(_logEntry.filePath);
-                                                                                                },
-                                                                                                icon: Icon(path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc') ? FontAwesomeIcons.solidFileWord : Icons.file_present, color: textColor, size: sy(30)),
-                                                                                              )
-                                                                                        // Icon(
-                                                                                        //   _logEntry.filePath == null || _logEntry.filePath!.isEmpty
-                                                                                        //       ? CupertinoIcons.book_circle_fill
-                                                                                        //       : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
-                                                                                        //           ? FontAwesomeIcons.solidFileExcel
-                                                                                        //           : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
-                                                                                        //               ? FontAwesomeIcons.solidFileWord
-                                                                                        //               : Icons.file_present,
-                                                                                        //   color: textColor,
-                                                                                        //   size: sy(30),
-                                                                                        // ),
-                                                                                        ),
-                                                                                  ),
-                                                                                  Spacer(),
-                                                                                  Text(
-                                                                                    DateFormat('dd-MMM-yyyy').format(
-                                                                                      _logEntry.date!.toDateTime(),
-                                                                                    ),
-                                                                                    style: kStyle(
-                                                                                      size: 13,
-                                                                                      color: textColor,
-                                                                                      italize: true,
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            // SizedBox(width: 15),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: OverflowView(
-                                                                                direction: Axis.vertical,
-                                                                                spacing: 4,
-                                                                                children: [
-                                                                                  CustomButton(
-                                                                                      icon: CupertinoIcons.eye,
-                                                                                      tooltip: 'view more details',
-                                                                                      onPressed: () {
-                                                                                        model.update(
-                                                                                          sideBarSignal: SideBarSignal.ViewLogBook,
-                                                                                          editLogBook: _logEntry,
-                                                                                        );
-                                                                                      }),
-                                                                                  CustomButton(
-                                                                                    icon: CupertinoIcons.pencil,
-                                                                                    tooltip: 'edit and update entry',
-                                                                                    onPressed: () {
-                                                                                      name.text = _logEntry.name!;
-                                                                                      workDone.text = _logEntry.workdone!;
-
-                                                                                      model.update(
-                                                                                        sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                        selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
-                                                                                        editLogBook: _logEntry,
-                                                                                      );
-                                                                                    },
-                                                                                  ),
-                                                                                  CustomButton(
-                                                                                    icon: CupertinoIcons.delete,
-                                                                                    tooltip: 'delete logbook entry',
-                                                                                    onPressed: () {
-                                                                                      model.controller.sendLogDeleteSignal(index);
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                                builder: (context, remaining) {
-                                                                                  var popupMenuEntries = [
-                                                                                    const PopupMenuItem<String>(
-                                                                                      value: 'view',
-                                                                                      child: Text('View'),
-                                                                                    ),
-                                                                                    const PopupMenuItem<String>(
-                                                                                      value: 'update',
-                                                                                      child: Text('Update'),
-                                                                                    ),
-                                                                                    const PopupMenuItem<String>(
-                                                                                      value: 'delete',
-                                                                                      child: Text('Delete'),
-                                                                                    ),
-                                                                                  ];
-                                                                                  popupMenuEntries.removeRange(0, 3 - remaining);
-                                                                                  return ClipRRect(
-                                                                                      borderRadius: BorderRadius.circular(3),
-                                                                                      child: Material(
-                                                                                          color: Colors.transparent,
-                                                                                          child: PopupMenuButton<String>(
-                                                                                            elevation: 2,
-                                                                                            icon: Text('+$remaining',
+                                                                                  Row(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        padding: EdgeInsets.zero,
+                                                                                        height: sy(90),
+                                                                                        width: sy(180),
+                                                                                        child: Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Expanded(
+                                                                                              child: AutoSizeText(
+                                                                                                _logEntry.name!,
+                                                                                                // overflow: TextOverflow.ellipsis,
+                                                                                                minFontSize: 15,
+                                                                                                maxFontSize: 15,
                                                                                                 style: kStyle(
-                                                                                                  size: 12,
-                                                                                                )),
-                                                                                            onSelected: (String result) {
-                                                                                              switch (result) {
-                                                                                                case 'view':
-                                                                                                  model.update(
-                                                                                                    sideBarSignal: SideBarSignal.ViewLogBook,
-                                                                                                    editLogBook: _logEntry,
-                                                                                                  );
-                                                                                                  break;
-
-                                                                                                case 'update':
-                                                                                                  name.text = _logEntry.name!;
-                                                                                                  workDone.text = _logEntry.workdone!;
-
-                                                                                                  model.update(
-                                                                                                    sideBarSignal: SideBarSignal.EditLogBook,
-                                                                                                    selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
-                                                                                                    editLogBook: _logEntry,
-                                                                                                  );
-                                                                                                  break;
-
-                                                                                                case 'delete':
-                                                                                                  model.controller.sendLogDeleteSignal(index);
-                                                                                                  break;
-                                                                                              }
-                                                                                            },
-                                                                                            itemBuilder: (BuildContext context) => popupMenuEntries,
-                                                                                          )));
-                                                                                  // return CircleAvatar(
-                                                                                  //   child: Text('+$remaining',
-                                                                                  //       style: kStyle(
-                                                                                  //         size: 12,
-                                                                                  //       )),
-                                                                                  //   backgroundColor: Colors.red,
-                                                                                  //   maxRadius: 8,
-                                                                                  //   minRadius: 8,
-                                                                                  // );
-                                                                                },
+                                                                                                  size: 15,
+                                                                                                ),
+                                                                                                maxLines: 8,
+                                                                                                softWrap: true,
+                                                                                                // overflowReplacement:Text('...'),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Expanded(
+                                                                                              child: CircleAvatar(
+                                                                                                  backgroundColor: Colors.transparent,
+                                                                                                  radius: sy(30),
+                                                                                                  child: _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                                      ? Icon(CupertinoIcons.book_circle_fill, color: textColor, size: sy(30))
+                                                                                                      : IconButton(
+                                                                                                          splashRadius: 3,
+                                                                                                          tooltip: 'Click to open',
+                                                                                                          onPressed: () {
+                                                                                                            OpenFile.open(_logEntry.filePath);
+                                                                                                          },
+                                                                                                          icon: Icon(path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc') ? FontAwesomeIcons.solidFileWord : Icons.file_present, color: textColor, size: sy(30)),
+                                                                                                        )
+                                                                                                  // Icon(
+                                                                                                  //   _logEntry.filePath == null || _logEntry.filePath!.isEmpty
+                                                                                                  //       ? CupertinoIcons.book_circle_fill
+                                                                                                  //       : path.extension(_logEntry.filePath!).endsWith('xlsx') || path.extension(_logEntry.filePath!).endsWith('xls')
+                                                                                                  //           ? FontAwesomeIcons.solidFileExcel
+                                                                                                  //           : path.extension(_logEntry.filePath!).endsWith('docx') || path.extension(_logEntry.filePath!).endsWith('doc')
+                                                                                                  //               ? FontAwesomeIcons.solidFileWord
+                                                                                                  //               : Icons.file_present,
+                                                                                                  //   color: textColor,
+                                                                                                  //   size: sy(30),
+                                                                                                  // ),
+                                                                                                  ),
+                                                                                            ),
+                                                                                            Spacer(),
+                                                                                            Text(
+                                                                                              DateFormat('dd-MMM-yyyy').format(
+                                                                                                _logEntry.date!.toDateTime(),
+                                                                                              ),
+                                                                                              style: kStyle(
+                                                                                                size: 13,
+                                                                                                color: textColor,
+                                                                                                italize: true,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ]),
                                                                               ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
+                                                                              Column(children: [
+                                                                                Expanded(
+                                                                                  flex: 1,
+                                                                                  child: OverflowView(
+                                                                                    direction: Axis.vertical,
+                                                                                    spacing: 4,
+                                                                                    children: [
+                                                                                      CustomButton(
+                                                                                          icon: CupertinoIcons.eye,
+                                                                                          tooltip: 'view more details',
+                                                                                          onPressed: () {
+                                                                                            model.update(
+                                                                                              sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                              editLogBook: _logEntry,
+                                                                                            );
+                                                                                          }),
+                                                                                      CustomButton(
+                                                                                        icon: CupertinoIcons.pencil,
+                                                                                        tooltip: 'edit and update entry',
+                                                                                        onPressed: () {
+                                                                                          name.text = _logEntry.name!;
+                                                                                          workDone.text = _logEntry.workdone!;
+
+                                                                                          model.update(
+                                                                                            sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                            selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
+                                                                                            editLogBook: _logEntry,
+                                                                                          );
+                                                                                        },
+                                                                                      ),
+                                                                                      CustomButton(
+                                                                                        icon: CupertinoIcons.delete,
+                                                                                        tooltip: 'delete logbook entry',
+                                                                                        onPressed: () {
+                                                                                          model.controller.sendLogDeleteSignal(index);
+                                                                                        },
+                                                                                      ),
+                                                                                    ],
+                                                                                    builder: (context, remaining) {
+                                                                                      var popupMenuEntries = [
+                                                                                        const PopupMenuItem<String>(
+                                                                                          value: 'view',
+                                                                                          child: Text('View'),
+                                                                                        ),
+                                                                                        const PopupMenuItem<String>(
+                                                                                          value: 'update',
+                                                                                          child: Text('Update'),
+                                                                                        ),
+                                                                                        const PopupMenuItem<String>(
+                                                                                          value: 'delete',
+                                                                                          child: Text('Delete'),
+                                                                                        ),
+                                                                                      ];
+                                                                                      popupMenuEntries.removeRange(0, 3 - remaining);
+                                                                                      return ClipRRect(
+                                                                                          borderRadius: BorderRadius.circular(3),
+                                                                                          child: Material(
+                                                                                              color: Colors.transparent,
+                                                                                              child: PopupMenuButton<String>(
+                                                                                                elevation: 2,
+                                                                                                icon: Text('+$remaining',
+                                                                                                    style: kStyle(
+                                                                                                      size: 12,
+                                                                                                    )),
+                                                                                                onSelected: (String result) {
+                                                                                                  switch (result) {
+                                                                                                    case 'view':
+                                                                                                      model.update(
+                                                                                                        sideBarSignal: SideBarSignal.ViewLogBook,
+                                                                                                        editLogBook: _logEntry,
+                                                                                                      );
+                                                                                                      break;
+
+                                                                                                    case 'update':
+                                                                                                      name.text = _logEntry.name!;
+                                                                                                      workDone.text = _logEntry.workdone!;
+
+                                                                                                      model.update(
+                                                                                                        sideBarSignal: SideBarSignal.EditLogBook,
+                                                                                                        selectedFile: _logEntry.filePath == null ? null : File(_logEntry.filePath!),
+                                                                                                        editLogBook: _logEntry,
+                                                                                                      );
+                                                                                                      break;
+
+                                                                                                    case 'delete':
+                                                                                                      model.controller.sendLogDeleteSignal(index);
+                                                                                                      break;
+                                                                                                  }
+                                                                                                },
+                                                                                                itemBuilder: (BuildContext context) => popupMenuEntries,
+                                                                                              )));
+                                                                                      // return CircleAvatar(
+                                                                                      //   child: Text('+$remaining',
+                                                                                      //       style: kStyle(
+                                                                                      //         size: 12,
+                                                                                      //       )),
+                                                                                      //   backgroundColor: Colors.red,
+                                                                                      //   maxRadius: 8,
+                                                                                      //   minRadius: 8,
+                                                                                      // );
+                                                                                    },
+                                                                                  ),
+                                                                                )
+                                                                              ]),
+                                                                            ]),
                                                                       ),
                                                                     ),
                                                                   );
