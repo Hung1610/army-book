@@ -191,7 +191,7 @@ class AppService extends MomentumService {
     String? docType: null,
   }) async {
     try {
-      Filter? filter = Filter.custom((record) => true);
+      Filter? filter = Filter.custom((_) => true);
 
       if (name != null && name.isNotEmpty)
         filter = Filter.and([
