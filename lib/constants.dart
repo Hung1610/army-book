@@ -43,6 +43,11 @@ enum DocType {
   Others,
 }
 
+final docTypeStrings = const {
+  DocType.GiaoTrinh: 'Giáo trình',
+  DocType.Others: 'Khác'
+};
+
 const String logHintText = """
 - Viết mô tả nội dung tài liệu.
 - Mô tả ngắn gọn, đầy đủ.

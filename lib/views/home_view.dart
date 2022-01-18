@@ -128,8 +128,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                         .map<DropdownMenuItem<String>>((DocType value) {
                       var item = DropdownMenuItem<String>(
                         value: value.name,
-                        child: Text(
-                            value == DocType.GiaoTrinh ? 'Giáo trình' : 'Khác'),
+                        child: Text(docTypeStrings[value]!),
                       );
                       return item;
                     }).toList();
@@ -697,7 +696,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                       child: Padding(
                                                                                           padding: EdgeInsets.all(5),
                                                                                           child: AutoSizeText(
-                                                                                            _logEntry.docType!,
+                                                                                            docTypeStrings[DocType.values.firstWhere((e) => e.name == _logEntry.docType!)]!,
                                                                                             overflow: TextOverflow.ellipsis,
                                                                                             minFontSize: 12,
                                                                                             maxFontSize: 14,
@@ -881,7 +880,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                                         child: Padding(
                                                                                             padding: EdgeInsets.all(5),
                                                                                             child: AutoSizeText(
-                                                                                              _logEntry.docType!,
+                                                                                              docTypeStrings[DocType.values.firstWhere((e) => e.name == _logEntry.docType!)]!,
                                                                                               overflow: TextOverflow.ellipsis,
                                                                                               minFontSize: 12,
                                                                                               maxFontSize: 14,
@@ -1298,9 +1297,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                           .map<DropdownMenuItem<String>>((DocType value) {
                         return DropdownMenuItem<String>(
                           value: value.name,
-                          child: Text(value == DocType.GiaoTrinh
-                              ? 'Giáo trình'
-                              : 'Khác'),
+                          child: Text(docTypeStrings[value]!),
                         );
                       }).toList(),
                     ),
@@ -1505,9 +1502,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                           .map<DropdownMenuItem<String>>((DocType value) {
                         return DropdownMenuItem<String>(
                           value: value.name,
-                          child: Text(value == DocType.GiaoTrinh
-                              ? 'Giáo trình'
-                              : 'Khác'),
+                          child: Text(docTypeStrings[value]!),
                         );
                       }).toList(),
                     ),
