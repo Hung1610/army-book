@@ -288,7 +288,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 child: Column(
                                               children: [
                                                 DropdownButtonFormField<String>(
-                                                  value: model.dropdownValue,
+                                                  value: model.searchType,
                                                   icon: const Icon(
                                                       Icons.arrow_downward),
                                                   elevation: 2,
