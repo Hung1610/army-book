@@ -44,6 +44,7 @@ Momentum momentum() => Momentum(
             SplashView(),
             HomeView(),
             PdfGenView(),
+            SettingView(),
           ],
         ),
       ],

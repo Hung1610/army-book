@@ -56,15 +56,13 @@ class CustomAppBar extends StatelessWidget {
                   CollapsibleItem(
                     text: 'Văn bản',
                     icon: CupertinoIcons.doc_richtext,
-                    onPressed: () =>
-                        //custom callback function called when title avatar or back icon is pressed
-                        MomentumRouter.goto(context, HomeView),
+                    onPressed: () => MomentumRouter.goto(context, HomeView),
                     isSelected: true,
                   ),
                   CollapsibleItem(
                     text: 'Cài đặt',
-                    icon: Icons.settings,
-                    onPressed: () => {},
+                    icon: CupertinoIcons.settings,
+                    onPressed: () => MomentumRouter.goto(context, SettingView),
                   ),
                 ],
                 sidebarBoxShadow: [
