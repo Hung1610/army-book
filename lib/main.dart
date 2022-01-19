@@ -1,7 +1,7 @@
+import 'package:army_book/components/settings-view/index.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
-import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
 import 'package:army_book/components/index.dart';
 import 'package:army_book/services/index.dart';
@@ -34,6 +34,7 @@ Momentum momentum() => Momentum(
           customLoader(loaderText: 'Initializing...', isInitLoader: true),
       controllers: [
         HomeViewController()..config(lazy: true),
+        SettingsViewController()..config(lazy: true),
         PdfPrinterViewController()..config(lazy: true),
       ],
       services: [
