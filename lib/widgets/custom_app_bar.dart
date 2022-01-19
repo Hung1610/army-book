@@ -16,6 +16,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var activePageIndex = 0;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -56,14 +57,17 @@ class CustomAppBar extends StatelessWidget {
                   CollapsibleItem(
                     text: 'Văn bản',
                     icon: CupertinoIcons.doc_richtext,
-                    onPressed: () => MomentumRouter.goto(context, HomeView),
-                    isSelected: true,
+                    onPressed: () {
+                      activePageIndex = 0;
+                      MomentumRouter.goto(context, HomeView);
+                    },
+                    isSelected: activePageIndex == 0 ? true : false,
                   ),
                   CollapsibleItem(
-                    text: 'Cài đặt',
-                    icon: CupertinoIcons.settings,
-                    onPressed: () => MomentumRouter.goto(context, SettingView),
-                  ),
+                      text: 'Cài đặt',
+                      icon: CupertinoIcons.settings,
+                      onPressed: () {},
+                      isSelected: activePageIndex == 1 ? true : false),
                 ],
                 sidebarBoxShadow: [
                   BoxShadow(
