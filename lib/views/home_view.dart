@@ -1086,6 +1086,11 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                                     null ||
                                                                 model.fromSearchDate !=
                                                                     null ||
+                                                                (model.searchType !=
+                                                                        null &&
+                                                                    model
+                                                                        .searchType!
+                                                                        .isNotEmpty) ||
                                                                 (model.nameSearch !=
                                                                         null &&
                                                                     model
