@@ -1,6 +1,7 @@
 # Army Book Desktop App
 
-a documents-organizing desktop app
+Documents organizing desktop application.
+Using local database by request for cheap and reliable internal usage.
 
 ## Screenshots
 ![splash](assets/screenshots/splash.png)
