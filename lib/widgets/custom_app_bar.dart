@@ -1,3 +1,4 @@
+import 'package:army_book/components/router-params/common-view.param.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,9 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var activePageIndex = 0;
+    var pageIndex = 0;
+    final param = MomentumRouter.getParam<CommonViewParam>(context);
+    if (param != null) pageIndex = param.pageIndex!;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -57,17 +60,16 @@ class CustomAppBar extends StatelessWidget {
                   CollapsibleItem(
                     text: 'Văn bản',
                     icon: CupertinoIcons.doc_richtext,
-                    onPressed: () {
-                      activePageIndex = 0;
-                      MomentumRouter.goto(context, HomeView);
-                    },
-                    isSelected: activePageIndex == 0 ? true : false,
+                    onPressed: () => MomentumRouter.goto(context, HomeView,
+                        params: CommonViewParam(pageIndex: 0)),
+                    isSelected: pageIndex == 0 ? true : false,
                   ),
                   CollapsibleItem(
                       text: 'Cài đặt',
                       icon: CupertinoIcons.settings,
-                      onPressed: () {},
-                      isSelected: activePageIndex == 1 ? true : false),
+                      onPressed: () => MomentumRouter.goto(context, SettingView,
+                          params: CommonViewParam(pageIndex: 1)),
+                      isSelected: pageIndex == 1 ? true : false),
                 ],
                 sidebarBoxShadow: [
                   BoxShadow(
