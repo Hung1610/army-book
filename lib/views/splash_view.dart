@@ -107,6 +107,7 @@ class _SplashViewState extends MomentumState<SplashView> {
                     child: AutoSizeText(
                       '"Quản lý công văn, giáo trình đơn giản, hiệu quả"',
                       style: TextStyle(
+                        fontFamily: 'Roboto',
                         color: Colors.blueGrey,
                         fontWeight: FontWeight.w600,
                         fontStyle: FontStyle.italic,

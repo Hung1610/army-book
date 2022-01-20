@@ -47,7 +47,7 @@ class _SettingViewState extends MomentumState<SettingView> {
                               ),
                               AutoSizeText(
                                 'Trang này đang trong quá trình phát triển',
-                                style: kStyle(),
+                                // style: kStyle(),
                                 minFontSize: 16,
                               )
                             ]),

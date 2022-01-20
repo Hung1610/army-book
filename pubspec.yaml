@@ -87,7 +87,19 @@ flutter:
   fonts:
     - family: NunitoSans
       fonts:
-        - asset: fonts/NunitoSans-Bold.ttf
-        - asset: fonts/NunitoSans-Italic.ttf
-        - asset: fonts/NunitoSans-Light.ttf
-        - asset: fonts/NunitoSans-Regular.ttf
+        - asset: assets/fonts/NunitoSans-Bold.ttf
+        - asset: assets/fonts/NunitoSans-Italic.ttf
+        - asset: assets/fonts/NunitoSans-Light.ttf
+        - asset: assets/fonts/NunitoSans-Regular.ttf
+    - family: TimesNewRoman
+      fonts:
+        - asset: assets/fonts/TimesNewRoman/times-new-roman.ttf
+        - asset: assets/fonts/TimesNewRoman/times-new-roman-bold.ttf
+        - asset: assets/fonts/TimesNewRoman/times-new-roman-italic.ttf
+        - asset: assets/fonts/TimesNewRoman/times-new-roman-bold-italic.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto/Roboto-Light.ttf

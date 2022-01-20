@@ -259,6 +259,7 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                 child: Column(
                                               children: [
                                                 TextFormField(
+                                                  style: kStyle(),
                                                   controller:
                                                       nameSearchController,
                                                   decoration: InputDecoration(
@@ -293,16 +294,18 @@ class _HomeViewState extends MomentumState<HomeView> {
                                                       Icons.arrow_downward),
                                                   elevation: 2,
                                                   decoration: InputDecoration(
-                                                    filled: false,
-                                                    hintText:
-                                                        'Tìm theo loại tài liệu',
-                                                    labelText: 'Loại tài liệu',
-                                                  ),
+                                                      filled: false,
+                                                      hintText:
+                                                          'Tìm theo loại tài liệu',
+                                                      labelText:
+                                                          'Loại tài liệu',
+                                                      labelStyle: kStyle()),
                                                   onChanged:
                                                       (String? newValue) {
                                                     model.update(
                                                         searchType: newValue);
                                                   },
+                                                  style: kStyle(),
                                                   items: menuItems,
                                                 ),
                                               ],

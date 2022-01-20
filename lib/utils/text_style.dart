@@ -8,7 +8,7 @@ TextStyle kStyle({
   bool italize: false,
 }) {
   return TextStyle(
-    fontFamily: 'Robito',
+    fontFamily: 'Roboto',
     color: color ?? textColor,
     fontWeight: FontWeight.w500,
     fontSize: size ?? 15,

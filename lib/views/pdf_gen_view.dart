@@ -48,9 +48,8 @@ class _PdfGenViewState extends MomentumState<PdfGenView> {
   Widget build(BuildContext context) {
     final model = viewController.model;
 
-    var defaultTextStyle = DefaultTextStyle.of(context)
-        .style
-        .copyWith(fontFamily: 'TimesNewRoman');
+    var defaultTextStyle =
+        DefaultTextStyle.of(context).style.copyWith(fontFamily: 'Roboto');
 
     final initialDocument = model.logBook != null
         ? model.logBook!.jsonContent != null
