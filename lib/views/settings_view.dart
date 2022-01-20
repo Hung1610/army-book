@@ -1,4 +1,6 @@
 import 'package:army_book/components/settings-view/index.dart';
+import 'package:army_book/utils/index.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
 
@@ -34,7 +36,22 @@ class _SettingViewState extends MomentumState<SettingView> {
                 body: MomentumBuilder(
                     controllers: [SettingsViewController],
                     builder: (context, snapshot) {
-                      return Text('Trang này đang trong quá trình phát triển');
+                      return Center(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.warning_rounded,
+                                color: Colors.orange,
+                                size: sy(50),
+                              ),
+                              AutoSizeText(
+                                'Trang này đang trong quá trình phát triển',
+                                style: kStyle(),
+                                minFontSize: 16,
+                              )
+                            ]),
+                      );
                     }),
               ),
             );
